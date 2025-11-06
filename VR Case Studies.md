@@ -21,6 +21,6 @@ Finished models can be exported and presented as images, turntables, or files fo
 
 ## An Example of a Model I Made
 
-!<img width="1470" height="956" alt="Screenshot 2025-11-05 at 8 12 14 PM" src="https://github.com/user-attachments/assets/f6c7f3f2-4417-4109-bfc7-2a874cd0927d" />
-!<img width="1470" height="956" alt="Screenshot 2025-11-05 at 8 12 22 PM" src="https://github.com/user-attachments/assets/a219fd54-eb09-4bab-9e9a-59627fb1245b" />
-!<img width="1470" height="956" alt="Screenshot 2025-11-05 at 8 12 26 PM" src="https://github.com/user-attachments/assets/39b5bfa6-0003-410d-bc0b-dab3014d9ff3" />
+<img width="1470" height="956" alt="Screenshot 2025-11-05 at 8 12 14 PM" src="https://github.com/user-attachments/assets/f6c7f3f2-4417-4109-bfc7-2a874cd0927d" />
+<img width="1470" height="956" alt="Screenshot 2025-11-05 at 8 12 22 PM" src="https://github.com/user-attachments/assets/a219fd54-eb09-4bab-9e9a-59627fb1245b" />
+<img width="1470" height="956" alt="Screenshot 2025-11-05 at 8 12 26 PM" src="https://github.com/user-attachments/assets/39b5bfa6-0003-410d-bc0b-dab3014d9ff3" />
