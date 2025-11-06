@@ -33,5 +33,5 @@ Although I can not take credit for the tremendous amount of work my fellow innov
 ![White](https://github.com/user-attachments/assets/3d031bf7-4f12-49ec-8175-b0cc9808ade1)
 
 
-
+Visit [VR Case Studies.md] to see what I have done with the Meta Quest Pro
 
