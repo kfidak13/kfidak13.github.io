@@ -34,6 +34,6 @@ Although I can not take credit for the tremendous amount of work my fellow innov
 
 
 Visit [My Vr Case Studies](VR Case Studies.md) to see what I have done with the Meta Quest Pro
-!(<img width="429" height="266" alt="image" src="https://github.com/user-attachments/assets/7cbc3e15-8d2d-4c0d-82db-dd864f8500a9" />)
+<img width="429" height="266" alt="image" src="https://github.com/user-attachments/assets/7cbc3e15-8d2d-4c0d-82db-dd864f8500a9" />
 
 
