@@ -46,6 +46,6 @@ Patterns emerged when plotted — the data followed a line but needed correction
 
 Observed that the sensor behaved better when mounted securely and kept at consistent angles.
 
-These early findings helped shape our ideas for a future scanning mechanism.
+These early findings helped shape our ideas for a future scanning/movement mechanism.
 
 <img width="402" height="247" alt="Screenshot 2025-11-16 at 3 45 28 PM" src="https://github.com/user-attachments/assets/31439083-6a88-423b-b915-5b28dd2c113b" />
