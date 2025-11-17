@@ -21,7 +21,7 @@ Basic wiring + breadboard setup
 
 Target objects placed at known distances
 
-Excel/Sheets for logging readings and making calibration plots
+Excel/Sheets for logging readings and making plots
 
 # Step-by-step process
 
@@ -42,7 +42,7 @@ Begin planning the next phase: moving to a 12 V system and eventually integratin
 
 Initial readings at 5 V showed somewhat noticable inconsistency.
 
-Patterns emerged when plotted — the data followed a line but needed correction.
+Patterns emerged when plotted, the data followed a line but needed correction.
 
 Observed that the sensor behaved better when mounted securely and kept at consistent angles.
 
