@@ -11,7 +11,7 @@ Is the sensor stable enough to support a future scanning device?
 
 How does power level affect sensor behavior and consistency?
 
-# Materials
+### Materials
 
 5 V Arduino (initial tests)
 
@@ -23,7 +23,7 @@ Target objects placed at known distances
 
 Excel/Sheets for logging readings and making plots
 
-# Step-by-step process
+### Step-by-step process
 
 Set up the sensor on the Arduino and record real-world distances.
 
@@ -38,7 +38,7 @@ Begin planning the next phase: moving to a 12 V system and eventually integratin
 ![E44AFD03-4F3C-40AE-80E4-9E4A99D6A73B_1_105_c](https://github.com/user-attachments/assets/936d77b3-3119-4b9a-b833-928612d361c6)
 
 
-# How it unfolded (testing phase results)
+### How it unfolded (testing phase results)
 
 Initial readings at 5 V showed somewhat noticable inconsistency.
 
@@ -49,3 +49,19 @@ Observed that the sensor behaved better when mounted securely and kept at consis
 These early findings helped shape our ideas for a future scanning/movement mechanism.
 
 <img width="402" height="247" alt="Screenshot 2025-11-16 at 3 45 28 PM" src="https://github.com/user-attachments/assets/31439083-6a88-423b-b915-5b28dd2c113b" />
+
+
+## Personal Journey
+
+### How did you feel?
+Curious and excited to see whether such a small sensor could actually work for the concept we had in mind.
+
+### How feelings changed as testing went on
+When the readings jumped around, it became frustrating, but being patient and trying to find that consistent reading eventually made it all go better
+
+### How these feelings relate to your journey
+The mix of confusion and discovery is what pushed us into the ideation stage. The early inconsistencies didn’t shut down the project — they inspired us to think bigger and become more bizzare, which led us to our somewhat first draft of our final
+
+![999C4AF5-1114-4729-A005-5DCE01EC6775_1_105_c](https://github.com/user-attachments/assets/41de3841-e483-4807-a0d1-e59f6d227d3a)
+
+
