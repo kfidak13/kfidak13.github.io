@@ -40,7 +40,7 @@ Begin planning the next phase: moving to a 12 V system and eventually integratin
 
 # How it unfolded (testing phase results)
 
-Initial readings at 5 V showed noticeable bias and inconsistency.
+Initial readings at 5 V showed somewhat noticable inconsistency.
 
 Patterns emerged when plotted — the data followed a line but needed correction.
 
