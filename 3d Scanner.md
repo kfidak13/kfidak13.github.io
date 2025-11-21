@@ -70,8 +70,7 @@ A few days after working with the beginning steps of the IR scanner, me and my p
 
 ### Issues
 
-We encountered many issues with our code whether it be it not uploading correctly or it spitting back falsified data. We changed up the code a ton experimenting with a different number of steps on the stepper motor, and different delays to get more accurate data. 
+We encountered many issues with our code whether it be it not uploading correctly or it spitting back falsified data. We changed up the code a ton experimenting with a different number of steps on the stepper motor, and different delays to get more accurate data. Away from the coding we experienced some more physical issues, for example with our sensor needing to be connected to a bread board. We fixed this by stripping the female wires a I believe and intertwining our wires for the IR sensors with the female wires which connect directly to the Arduino allowing extra mobility for the IR sensor.
 
-## 
 
 
