@@ -67,10 +67,12 @@ The mix of confusion and discovery is what pushed us into the ideation stage. Th
 ## Coding
 
 A few days after working with the beginning steps of the IR scanner, me and my partner began working with the code for the Scanner. This code was required to be able to move a few degrees scan the environment and then report back distances to show that it is actually tracking the data.
+![2061CA46-BA46-44C4-94AD-7B185E15DAE4_1_105_c](https://github.com/user-attachments/assets/5a29269c-1028-4147-b95c-92483a2cf9b3)
 
 ### Issues
 
 We encountered many issues with our code whether it be it not uploading correctly or it spitting back falsified data. We changed up the code a ton experimenting with a different number of steps on the stepper motor, and different delays to get more accurate data. Away from the coding we experienced some more physical issues, for example with our sensor needing to be connected to a bread board. We fixed this by stripping the female wires a I believe and intertwining our wires for the IR sensors with the female wires which connect directly to the Arduino allowing extra mobility for the IR sensor.
 
+![4AE8A023-24AD-4783-955B-52B8ACCA6305_1_105_c](https://github.com/user-attachments/assets/2a7dfe21-20b9-4f29-9575-21cea2adf8a7)
 
 
