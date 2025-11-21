@@ -1,1 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ page.title }} - {{ site.title }}</title>
+
+  <!-- Custom CSS -->
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #0d0d16;
+      color: white;
+    }
+
+    .hero {
+      height: 50vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: linear-gradient(120deg, #4e00c2, #0066ff, #00d4ff);
+      background-size: 300% 300%;
+      animation: gradientShift 12s ease infinite;
+    }
+
+    .hero h1 {
+      font-size: 3.2rem;
+      margin-bottom: 10px;
+    }
+
+    .hero button, .hero a {
+      padding: 12px 22px;
+      border-radius: 10px;
+      border: 2px solid white;
+      background: transparent;
+      color: white;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .hero a:hover {
+      box-shadow: 0 0 18px #00eaff;
+      border-color: #00eaff;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    main {
+      width: 80%;
+      max-width: 900px;
+      margin: 40px auto;
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="hero">
+  <div>
+    <h1>{{ site.title }}</h1>
+    <p>{{ site.description }}</p>
+    <a href="#content">Explore ↓</a>
+  </div>
+</header>
+
+<main id="content">
+  {{ content }}
+</main>
+
+</body>
+</html>
 
