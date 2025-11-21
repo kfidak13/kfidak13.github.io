@@ -67,6 +67,7 @@ The mix of confusion and discovery is what pushed us into the ideation stage. Th
 ## Coding
 
 A few days after working with the beginning steps of the IR scanner, me and my partner began working with the code for the Scanner. This code was required to be able to move a few degrees scan the environment and then report back distances to show that it is actually tracking the data.
+
 ![2061CA46-BA46-44C4-94AD-7B185E15DAE4_1_105_c](https://github.com/user-attachments/assets/5a29269c-1028-4147-b95c-92483a2cf9b3)
 
 ### Issues
