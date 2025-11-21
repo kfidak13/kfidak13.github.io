@@ -64,4 +64,14 @@ The mix of confusion and discovery is what pushed us into the ideation stage. Th
 
 ![999C4AF5-1114-4729-A005-5DCE01EC6775_1_105_c](https://github.com/user-attachments/assets/41de3841-e483-4807-a0d1-e59f6d227d3a)
 
+## Coding
+
+A few days after working with the beginning steps of the IR scanner, me and my partner began working with the code for the Scanner. This code was required to be able to move a few degrees scan the environment and then report back distances to show that it is actually tracking the data.
+
+### Issues
+
+We encountered many issues with our code whether it be it not uploading correctly or it spitting back falsified data. We changed up the code a ton experimenting with a different number of steps on the stepper motor, and different delays to get more accurate data. 
+
+## 
+
 
