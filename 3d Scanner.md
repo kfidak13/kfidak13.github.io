@@ -76,4 +76,8 @@ We encountered many issues with our code whether it be it not uploading correctl
 
 ![4AE8A023-24AD-4783-955B-52B8ACCA6305_1_105_c](https://github.com/user-attachments/assets/2a7dfe21-20b9-4f29-9575-21cea2adf8a7)
 
+## Feelings up to this Point
+
+Overall, I would say I am suprised with how far we have gotten provided that we had no clue what we were doing with the code initially. There were some points that I felt I had fallen behind, but my partner did a good job keeping me up with everything. I would say we are fairly close to the point where we can start scanning and hopefully start plotting out points to creat some sort of scan on a surface, but I would say it still requires a bit more time.
+
 
