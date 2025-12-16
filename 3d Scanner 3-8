@@ -1,4 +1,4 @@
-#Project Progress Overview
+# Project Progress Overview
 
 Between Days 3 and 8, our focus shifted from learning individual components to building a coordinated scanning system. Early on, we concentrated on understanding stepper motors and single-axis motion. As the project progressed, we began refining our code and integrating two stepper motors to enable scanning along both the X and Y axes, bringing the scanner closer to true 2D data collection.
 
