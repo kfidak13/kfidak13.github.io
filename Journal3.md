@@ -20,7 +20,7 @@ By the end of Day 4, we had reliable single-axis motion and a scanning routine c
 
 # Days 5–6: Code Refinement and Stability
 
-Once basic scanning functionality was working, Days 5 and 6 were spent refining and cleaning up the code. Early versions worked, but they were difficult to scale and debug. Improving structure became necessary before adding more hardware.
+Once basic scanning functionality was working, Days 5 and 6 were spent refining and cleaning up the code. Early versions worked, but they were difficult to scale and debug. Improving the structure became necessary before adding more hardware.
 
 # Key improvements during this stage included:
 
@@ -32,14 +32,14 @@ Improving variable naming and readability
 
 Reducing hard-coded values where possible
 
-These refinements made the code easier to understand and allowed us to modify motion behavior without introducing new bugs. This step was especially important before adding a second motor, since errors would become harder to isolate with increased system complexity.
+These refinements made the code easier to understand and allowed us to modify motion behavior without introducing new bugs. This step was crucial before adding a second motor, since errors would become harder to isolate with increased system complexity.
 
 Days 7–8: Dual-Axis Scanning (X and Y)
 Adding a Second Stepper Motor
 
 During Days 7 and 8, we mounted two stepper motors onto the scanner frame to enable movement along both the X-axis and Y-axis. One motor controlled horizontal rotation, while the second motor introduced vertical or lateral movement.
 
-This upgrade transformed the scanner from a single sweep system into a grid-based scanning platform, capable of collecting multiple scan lines across different positions.
+This upgrade transformed the scanner from a single-sweep system into a grid-based scanning platform, capable of collecting multiple scan lines across different positions.
 
 # Coordinating X and Y Motion
 
@@ -78,7 +78,9 @@ This refinement ensured that each axis could be controlled independently while s
 Example structure:
 
 for (int y = 0; y < Y_STEPS; y++) {
+
   moveY(1);
+  
   for (int x = 0; x < X_STEPS; x++) {
     moveX(1);
     float distance = getDistance();
@@ -119,8 +121,10 @@ The system was prepared for future data processing and visualization
 
 This phase laid the groundwork for turning raw measurements into meaningful spatial representations and pushed the project from a concept demonstration toward a functional scanner.
 
-Credits
+## Credits
 
 Project Partners: Thomas Li
+
 Project: 3D Scanner
+
 Development Log: Days 3–8
