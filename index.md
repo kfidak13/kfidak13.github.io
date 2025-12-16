@@ -41,6 +41,6 @@ Visit [My Vr Case Studies](VR Case Studies.md) to see what I have done with the 
 See our progress when working with a scanner [Arduino](3d Scanner.md)
 ![CA3359D7-8228-4F01-A735-E5E335BFC824_1_105_c](https://github.com/user-attachments/assets/4755fed4-d3f0-434c-8474-134a7176c9cf)
 
-Days 3-8 Prrogress [Journal #3](Journal3.md)
+Days 3-8 Progress [Journal #3](Journal3.md)
 
 
