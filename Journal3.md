@@ -2,8 +2,6 @@
 
 Between Days 3 and 8, our focus shifted from learning individual components to building a coordinated scanning system. Early on, we concentrated on understanding stepper motors and single-axis motion. As the project progressed, we began refining our code and integrating two stepper motors to enable scanning along both the X and Y axes, bringing the scanner closer to true 2D data collection.
 
-This phase marked the transition from experimentation to system-level thinking.
-
 Days 3–4: Foundations of Motion Control
 
 During Days 3 and 4, the primary goal was to understand how stepper motors operate and how to control them accurately using an Arduino and A4988 drivers. Since a scanner relies on precise and repeatable motion, this knowledge was critical.
@@ -53,7 +51,10 @@ After completing a full X sweep, step the Y-axis motor
 
 Repeat the X scan at the new Y position
 
-This approach is similar to how a printer or CNC machine operates and allows the scanner to build a 2D map of distance measurements.
+This approach is similar to how a printer or CNC machine operates, allowing the scanner to build a 2D map of distance measurements.
+
+![E262A65D-C277-4DD0-A445-B007913726DC_1_105_c](https://github.com/user-attachments/assets/0dc88f5e-bccc-4d0d-8cc7-95c38f9759a0)
+
 
 ## Conceptually, the scan now resembled a matrix:
 
@@ -71,9 +72,10 @@ Separate STEP and DIR pins for X and Y axes
 
 Independent movement functions for each motor
 
-A nested loop structure for systematic scanning
 
 This refinement ensured that each axis could be controlled independently while still working together during the scan.
+
+![37A4D827-B188-4A21-A009-3024B5E690B8_1_105_c](https://github.com/user-attachments/assets/8ffd22c0-92f8-4e56-91be-62bbfbe9f7f1)
 
 Example structure:
 
@@ -103,7 +105,9 @@ Timing conflicts between motor movement and sensor readings
 
 Increased risk of direction logic errors
 
-Mechanical alignment issues affecting consistency
+Mechanical alignment issues are affecting consistency
+
+Refining connections to keep the structure as efficient as possible
 
 Solving these problems required careful testing, slower movement speeds, and frequent verification of both hardware and software behavior.
 
@@ -119,7 +123,15 @@ The scanner could collect structured 2D scan data
 
 The system was prepared for future data processing and visualization
 
-This phase laid the groundwork for turning raw measurements into meaningful spatial representations and pushed the project from a concept demonstration toward a functional scanner.
+Example of voltage conversion:
+
+<img width="715" height="558" alt="Screenshot 2025-12-17 at 11 04 59 PM" src="https://github.com/user-attachments/assets/f54de31a-1498-46b5-b7ec-6cf252b75572" />
+
+This phase laid the groundwork for turning raw measurements into meaningful spatial representations and pushed the project from a concept demonstration toward a functional scanner that could plot points and create an image.
+
+## Final Reflection
+
+The project was something new to me, somethingI had never worked with. I learned python, how stepper motors worked, and even the "jesus nut" the project provided me with so much new information/knowledge that I actualy could use later on in life, something not said a lot a school. It was difficult, it was hard for me to process what we were doing, because we just propeled ourselves into the world of 3d scanner. I felt that I was extremely lost at the beginning, but as the unit went on I began to proccess faster, and learn more. I'd like to give a special shout-out to my partner Thomas as he helped guide me through complicated ideas that I never worked through, and he was very patient with me.
 
 ## Credits
 
