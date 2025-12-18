@@ -39,6 +39,8 @@ During Days 7 and 8, we mounted two stepper motors onto the scanner frame to ena
 
 This upgrade transformed the scanner from a single-sweep system into a grid-based scanning platform, capable of collecting multiple scan lines across different positions.
 
+On day 7, we had a major issue. Our Arduino had stopped working, but we couldn't figure out what it was. We spent 20-30 minutes disassembling our Arduino, checking each part to find functionality. In the end we found out that we were given a faulty batch of drivers, so we had to replace them with new ones.
+
 # Coordinating X and Y Motion
 
 With two motors, the scanning process followed a structured pattern:
