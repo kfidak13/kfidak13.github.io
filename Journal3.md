@@ -133,7 +133,7 @@ This phase laid the groundwork for turning raw measurements into meaningful spat
 
 ## Final Reflection
 
-The project was something new to me, somethingI had never worked with. I learned python, how stepper motors worked, and even the "jesus nut" the project provided me with so much new information/knowledge that I actualy could use later on in life, something not said a lot a school. It was difficult, it was hard for me to process what we were doing, because we just propeled ourselves into the world of 3d scanner. I felt that I was extremely lost at the beginning, but as the unit went on I began to proccess faster, and learn more. I'd like to give a special shout-out to my partner Thomas as he helped guide me through complicated ideas that I never worked through, and he was very patient with me.
+The project was something new to me, something I had never worked with. I learned python, how stepper motors worked, and even the "jesus nut" the project provided me with so much new information/knowledge that I actualy could use later on in life, something not said a lot a school. It was difficult, it was hard for me to process what we were doing, because we just propeled ourselves into the world of 3d scanner. I felt that I was extremely lost at the beginning, but as the unit went on I began to process faster and learn more. I'd like to give a special shout-out to my partner Thomas as he helped guide me through complicated ideas that I never worked through, and he was very patient with me.
 
 ## Credits
 
