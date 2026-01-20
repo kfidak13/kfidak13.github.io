@@ -46,5 +46,5 @@ Days 3-8 Progress [Journal #3](Journal3.md)
 
 LifeTrack: The App for everyday life [LifeTrack](LifeTrack.md)
 
-<img width="1443" height="645" alt="Screenshot 2026-01-19 at 5 55 08 PM" src="https://github.com/user-attachments/assets/8c57fa81-2b09-4dea-b050-4d0cf652c81c" />
+<img width="700" height="645" alt="Screenshot 2026-01-19 at 5 55 08 PM" src="https://github.com/user-attachments/assets/8c57fa81-2b09-4dea-b050-4d0cf652c81c" />
 
