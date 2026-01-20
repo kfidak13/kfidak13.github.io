@@ -1,4 +1,4 @@
-# Innovator’s Journal – Reading Habit & Life Organization Website
+# Innovator’s Journal – LifeTrack - An app for everyday life - Domain Pending
 
 ## Overview
 In this sprint, I followed a three-phase design process (WHO, WHAT, HOW) to identify a real user problem, explore solutions, and build a working prototype. My goal was to design a tool that helps students stay consistent with reading and daily habits by improving organization, reminders, and tracking.
