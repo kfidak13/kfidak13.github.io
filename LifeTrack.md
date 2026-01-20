@@ -101,6 +101,8 @@ I built a **website prototype** that combines:
 - Calendar
 - Reminder system
 - Habit tracker
+- 
+<img width="800" height="640" alt="Screenshot 2026-01-20 at 12 28 29 PM" src="https://github.com/user-attachments/assets/b132eb9f-4061-4ca8-8a26-51fe0d6239c2" />
 
 I chose to use **Lovable** to quickly prototype and experiment with AI-assisted development.
 
