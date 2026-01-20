@@ -12,6 +12,8 @@ This journal documents my process, stakeholder insights, technical experimentati
 ### Stakeholder Interview
 I interviewed **Joshua Hong**, a student focused on self-improvement and expanding his knowledge outside of traditional school learning.
 
+<img width="499" height="629" alt="Screenshot 2026-01-20 at 8 14 51 AM" src="https://github.com/user-attachments/assets/5d3e020a-822c-4268-9e44-7b630dc6a68e" />
+
 ### Stakeholder Goals
 Joshua expressed a clear desire to grow intellectually through independent learning:
 
