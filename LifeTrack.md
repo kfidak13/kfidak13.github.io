@@ -126,7 +126,7 @@ This marked a shift from frustration to confidence.
 ## Two-Week Sprint Breakdown
 
 ### Week 1: Research and Planning
-- Conducted stakeholder interview with Joshua Hahn
+- Conducted stakeholder interview with Joshua Hong
 - Identified pain points around fragmented tools
 - Defined problem around consistency and organization
 - Brainstormed multiple solution ideas
