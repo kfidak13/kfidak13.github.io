@@ -122,6 +122,8 @@ However, once I understood the workflow, progress accelerated.
 After learning how Lovable organized its code and logic:
 
 > The code started flowing, and building became much more intuitive.
+> 
+<img width="800" height="579" alt="Screenshot 2026-01-20 at 12 52 59 PM" src="https://github.com/user-attachments/assets/ffa979d5-0870-4895-b3ea-7dd7b5d62521" />
 
 This marked a shift from frustration to confidence.
 
