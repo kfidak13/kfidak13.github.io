@@ -154,6 +154,8 @@ The final outcome was a working website prototype that allows users to:
 
 This solution directly responds to the stakeholder’s desire to reduce app overload and improve consistency.
 
+<img width="800" height="645" alt="Screenshot 2026-01-19 at 5 55 08 PM" src="https://github.com/user-attachments/assets/a26e0f41-2c98-4cd8-ab90-2b5022f8b21d" />
+
 ---
 
 ## Reflection and Learning
