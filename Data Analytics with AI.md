@@ -1,7 +1,7 @@
 # Data Analytics
 During our journey in our personal projects, I decided to pursue Data Analytics. Due to my inability to code overly efficient I have become comfortable with the coding app Windsurf. Using this allows me to be in detail with the code and have a copilot on the side to correct mistakes made or even make the code more efficient. 
 
-<img width="1800" height="100" alt="Screenshot 2026-02-12 at 1 17 02 PM" src="https://github.com/user-attachments/assets/e572af0d-4683-4efa-879c-3c239eeb79ab" />
+<img width="700" height="100" alt="Screenshot 2026-02-12 at 1 17 02 PM" src="https://github.com/user-attachments/assets/e572af0d-4683-4efa-879c-3c239eeb79ab" />
 
 
 ## Log #1 2/12/26
