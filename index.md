@@ -48,5 +48,5 @@ LifeTrack: The App for everyday life [LifeTrack](LifeTrack.md)
 
 <img width="700" height="645" alt="Screenshot 2026-01-19 at 5 55 08 PM" src="https://github.com/user-attachments/assets/8c57fa81-2b09-4dea-b050-4d0cf652c81c" />
 
-Webb Sports [Sports Hub](Data Analytics with AI.md) 
+Webb Sports [Sports Hub](DataAnalyticswithAI.md) 
 
