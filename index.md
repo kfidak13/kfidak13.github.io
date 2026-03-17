@@ -50,3 +50,4 @@ LifeTrack: The App for everyday life [LifeTrack](LifeTrack.md)
 
 Webb Sports [Sports Hub](DataAnalyticswithAI.md) 
 
+We had a micro sprint focusing on the 17 SDG's and here is the research I conducted [Digital Equity](SDGMicroSprint.md)
