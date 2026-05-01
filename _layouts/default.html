@@ -1,77 +1,330 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>{{ page.title }} - {{ site.title }}</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ page.title | default: site.title }}</title>
+<meta name="description" content="{{ site.description }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --bg-elev: #111729;
+    --ink: #f4f1ea;
+    --ink-dim: #9ba3b8;
+    --accent: #ff5b3a;     /* electric orange */
+    --accent-2: #6ee7ff;   /* electric cyan */
+    --accent-3: #fcd34d;   /* warm yellow */
+    --line: rgba(255,255,255,0.08);
+    --radius: 14px;
+  }
 
-  <!-- Custom CSS -->
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: #0d0d16;
-      color: white;
-    }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
 
-    .hero {
-      height: 50vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      background: linear-gradient(120deg, #4e00c2, #0066ff, #00d4ff);
-      background-size: 300% 300%;
-      animation: gradientShift 12s ease infinite;
-    }
+  /* Animated grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: -2;
+    opacity: 0.5;
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(255,91,58,0.15), transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(110,231,255,0.12), transparent 45%);
+    z-index: -1;
+    pointer-events: none;
+  }
 
-    .hero h1 {
-      font-size: 3.2rem;
-      margin-bottom: 10px;
-    }
+  /* Top bar */
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 2rem;
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(8px);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(10,14,26,0.7);
+  }
+  .topbar .brand {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .topbar .brand span { color: var(--accent); }
+  .topbar nav a {
+    color: var(--ink-dim);
+    text-decoration: none;
+    margin-left: 1.5rem;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+  }
+  .topbar nav a:hover { color: var(--accent-2); }
 
-    .hero button, .hero a {
-      padding: 12px 22px;
-      border-radius: 10px;
-      border: 2px solid white;
-      background: transparent;
-      color: white;
-      text-decoration: none;
-      transition: 0.3s;
-    }
+  /* Hero */
+  .hero {
+    padding: 6rem 2rem 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .hero .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 .highlight {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-3) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-style: italic;
+  }
+  .hero p.lede {
+    font-size: 1.25rem;
+    color: var(--ink-dim);
+    max-width: 640px;
+    margin-bottom: 2.5rem;
+  }
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.9rem 1.75rem;
+    background: var(--accent);
+    color: var(--bg);
+    text-decoration: none;
+    border-radius: 999px;
+    font-weight: 600;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .hero-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px -10px var(--accent);
+  }
 
-    .hero a:hover {
-      box-shadow: 0 0 18px #00eaff;
-      border-color: #00eaff;
-    }
+  /* Content wrapper */
+  .content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+    position: relative;
+  }
+  .content h1, .content h2, .content h3, .content h4 {
+    font-family: 'Space Grotesk', sans-serif;
+    letter-spacing: -0.02em;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+  .content h1 { font-size: 2.75rem; font-weight: 700; }
+  .content h2 {
+    font-size: 1.85rem;
+    color: var(--ink);
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--accent);
+    display: inline-block;
+  }
+  .content h3 { font-size: 1.3rem; color: var(--accent-2); }
+  .content h4 { font-size: 1.1rem; color: var(--accent-3); }
+  .content p { margin: 1rem 0; color: var(--ink); }
+  .content a {
+    color: var(--accent-2);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+  }
+  .content a:hover { border-bottom-color: var(--accent-2); }
+  .content ul, .content ol { margin: 1rem 0 1rem 1.5rem; }
+  .content li { margin: 0.5rem 0; color: var(--ink); }
+  .content strong { color: var(--accent-3); font-weight: 600; }
+  .content code {
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--bg-elev);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.9em;
+    color: var(--accent-2);
+  }
+  .content blockquote {
+    border-left: 3px solid var(--accent);
+    padding-left: 1.5rem;
+    margin: 1.5rem 0;
+    color: var(--ink-dim);
+    font-style: italic;
+  }
+  .content img {
+    max-width: 100%;
+    border-radius: var(--radius);
+    margin: 1.5rem 0;
+    border: 1px solid var(--line);
+  }
 
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+  /* Project card grid (used on home page) */
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+  .project-card {
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    text-decoration: none;
+    color: var(--ink);
+    transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--card-accent, var(--accent));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .project-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--card-accent, var(--accent));
+    box-shadow: 0 20px 40px -20px rgba(0,0,0,0.6);
+  }
+  .project-card:hover::before { transform: scaleX(1); }
+  .project-card .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--card-accent, var(--accent));
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .project-card h3 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--ink);
+  }
+  .project-card p {
+    color: var(--ink-dim);
+    font-size: 0.95rem;
+    margin: 0;
+  }
+  .project-card .arrow {
+    margin-top: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--card-accent, var(--accent));
+  }
 
-    main {
-      width: 80%;
-      max-width: 900px;
-      margin: 40px auto;
-    }
-  </style>
+  /* Status badge */
+  .status-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 1.5rem 0;
+  }
+  .badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    padding: 0.4rem 0.85rem;
+    border-radius: 999px;
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    color: var(--ink-dim);
+  }
+  .badge.live { color: var(--accent-2); border-color: var(--accent-2); }
+  .badge.wip { color: var(--accent-3); border-color: var(--accent-3); }
+  .badge.shipped { color: var(--accent); border-color: var(--accent); }
+
+  /* Footer */
+  footer {
+    margin-top: 6rem;
+    padding: 2rem;
+    text-align: center;
+    color: var(--ink-dim);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    border-top: 1px solid var(--line);
+  }
+
+  @media (max-width: 640px) {
+    .topbar { padding: 1rem; flex-direction: column; gap: 0.75rem; }
+    .topbar nav a { margin: 0 0.75rem; }
+    .hero { padding: 3rem 1.25rem 2rem; }
+    .content { padding: 1.5rem 1.25rem; }
+    .content h1 { font-size: 2rem; }
+  }
+</style>
 </head>
-
 <body>
 
-<header class="hero">
-  <div>
-    <h1>{{ site.title }}</h1>
-    <p>{{ site.description }}</p>
-    <a href="#content">Explore ↓</a>
-  </div>
+<header class="topbar">
+  <a href="/" class="brand">kfidak<span>13</span> /</a>
+  <nav>
+    <a href="/">Home</a>
+    <a href="https://github.com/kfidak13" target="_blank" rel="noopener">GitHub</a>
+  </nav>
 </header>
 
-<main id="content">
-  {{ content }}
+<main>
+  {% if page.url == "/" %}
+  <section class="hero">
+    <div class="eyebrow">Innovator · Builder · Webb School</div>
+    <h1>Hey, I'm Kaydon. I build <span class="highlight">things</span> that work.</h1>
+    <p class="lede">A portfolio of projects, journals, and experiments from the Tech &amp; Innovation Seminar — from VR case studies to a full-stack athletics hub for my school.</p>
+    <a href="#content" class="hero-cta">See the work →</a>
+  </section>
+  {% endif %}
+
+  <section class="content" id="content">
+    {{ content }}
+  </section>
 </main>
+
+<footer>
+  © 2026 Kaydon · Built with Jekyll · Hosted on GitHub Pages
+</footer>
 
 </body>
 </html>
-
