@@ -22,6 +22,7 @@ Coming back from Florida, I had a long list of things I wanted to add. Here is w
 
 ### Tech stack notes (for future me)
 
+- **Editor / AI pair:** Windsurf, with Claude as the model. Most of the code in this project was written by me prompting Claude inside Windsurf, then reading what it produced, fixing what was wrong, and iterating. I want to be honest about that because it is a big part of how this got built in three weeks. The skill I am actually building is not "typing every line myself," it is knowing what to ask for, knowing when the output is wrong, and knowing how the pieces fit together. That has gotten noticeably better over these three weeks.
 - Frontend: Vite + React + TypeScript, styled with Tailwind and shadcn/ui components.
 - Backend: Supabase for auth, database, and realtime.
 - Deploy: Vercel for the web app, with Netlify functions handling some side stuff.
