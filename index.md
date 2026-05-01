@@ -1,56 +1,97 @@
----
 layout: default
-title: Kfidak13
----
+title: "Kaydon — Innovator Portfolio"
+<div class="status-row">
+  <span class="badge live">● Live: Webb Sports Hub</span>
+  <span class="badge wip">◐ Building: Portfolio v2</span>
+  <span class="badge shipped">✓ Shipped: Project Nameplate</span>
+</div>
+About me
+I'm Kaydon. My goal in the Tech and Innovation Seminar is to gain a deeper understanding of how to take an idea and actually build it — through code, design, or whatever the project calls for. A lot of what shapes the way I work comes from community service, where I learned that the most useful things you build are the ones that are actually for someone else.
+I also pay close attention to people who can stand up in front of a room and explain something clearly. Building the confidence to do that — both in person and through the work I publish here — is one of the things I am working on this year.
 
+🚀 Main Projects
+<div class="project-grid">
+  <a class="project-card" href="https://webb-athletics-hub.vercel.app" target="_blank" rel="noopener" style="--card-accent: #ff5b3a;">
+    <span class="tag">// Live · React + Supabase</span>
+    <h3>Webb Sports Hub</h3>
+    <p>A full athletics hub for my school: schedules, real-time chat, and personal stat tracking with auth. The flagship project of this year.</p>
+    <span class="arrow">visit live site →</span>
+  </a>
+  <a class="project-card" href="https://github.com/kfidak13/team-schedule-hub" target="_blank" rel="noopener" style="--card-accent: #6ee7ff;">
+    <span class="tag">// Source code</span>
+    <h3>Sports Hub — GitHub</h3>
+    <p>Vite + React + TypeScript + Tailwind frontend. Supabase for auth, database, and realtime. Capacitor for mobile wrappers.</p>
+    <span class="arrow">view repo →</span>
+  </a>
+  <a class="project-card" href="LifeTrack.html" style="--card-accent: #fcd34d;">
+    <span class="tag">// Concept · Side project</span>
+    <h3>LifeTrack</h3>
+    <p>An app concept for everyday life management. Currently parked while I focus on Sports Hub, but the design work lives on here.</p>
+    <span class="arrow">read more →</span>
+  </a>
+</div>
 
-# About Me
-I am Kaydon and my goal in the Tech and Innovation Seminar is to gain a deeper understanding of how to create and bring ideas to life. I want to explore the process of turning imagination into something tangible, whether that be through technology, design, or problem-solving. Some of the experiences that have shaped me most involve community service. Through volunteering, I have learned the importance of giving to others rather than focusing only on myself. These opportunities have shown me the value of empathy, responsibility, and teamwork, and they continue to influence the way I approach challenges.
+📓 Journals & Reflections
+<div class="project-grid">
+  <a class="project-card" href="Journal4.html" style="--card-accent: #ff5b3a;">
+    <span class="tag">// 4-30-26 · Latest</span>
+    <h3>Journal #4 — Three Weeks In</h3>
+    <p>What I built since spring break: Supabase auth, real-time chat, stats tracking, and what I learned the hard way about RLS policies.</p>
+    <span class="arrow">read →</span>
+  </a>
+  <a class="project-card" href="ReflectionBfrSB.html" style="--card-accent: #6ee7ff;">
+    <span class="tag">// 3-19-26</span>
+    <h3>Reflection Before Spring Break</h3>
+    <p>Where I was at heading into the break, what I wanted to come back and finish, and the mental refresh that made it possible.</p>
+    <span class="arrow">read →</span>
+  </a>
+  <a class="project-card" href="Journal3.html" style="--card-accent: #fcd34d;">
+    <span class="tag">// Days 3-8</span>
+    <h3>Journal #3 — Early Progress</h3>
+    <p>Documenting the first stretch of work in the seminar.</p>
+    <span class="arrow">read →</span>
+  </a>
+</div>
 
-Another source of inspiration for me comes from watching people who can confidently stand in front of a crowd and communicate their thoughts without hesitation. Their ability to connect with others and share information with clarity motivates me to build confidence in my own voice and presentation skills. Looking ahead, one of my major goals is to create a meaningful project during this seminar—something that represents my growth and creativity. I hope it will be a project I can look back on years from now as a reminder of the progress I made and the experiences that shaped me during this time.
+🛠️ Experiments & Case Studies
+<div class="project-grid">
+  <a class="project-card" href="VR%20Case%20Studies.html" style="--card-accent: #6ee7ff;">
+    <span class="tag">// Hardware</span>
+    <h3>VR Case Studies</h3>
+    <p>What I explored using the Meta Quest Pro — applications, limitations, and what I learned about the medium.</p>
+    <span class="arrow">read →</span>
+  </a>
+  <a class="project-card" href="3d%20Scanner.html" style="--card-accent: #fcd34d;">
+    <span class="tag">// Arduino</span>
+    <h3>3D Scanner</h3>
+    <p>Group progress on building a working 3D scanner using Arduino.</p>
+    <span class="arrow">read →</span>
+  </a>
+  <a class="project-card" href="DataAnalyticswithAI.html" style="--card-accent: #ff5b3a;">
+    <span class="tag">// AI · Data</span>
+    <h3>Data Analytics with AI</h3>
+    <p>Early-stage thinking that became Webb Sports Hub.</p>
+    <span class="arrow">read →</span>
+  </a>
+  <a class="project-card" href="SDGMicroSprint.html" style="--card-accent: #6ee7ff;">
+    <span class="tag">// Micro-sprint</span>
+    <h3>Digital Equity (SDG)</h3>
+    <p>Research on the UN's Sustainable Development Goals, focused on digital equity.</p>
+    <span class="arrow">read →</span>
+  </a>
+  <a class="project-card" href="PNP.html" style="--card-accent: #fcd34d;">
+    <span class="tag">// Design</span>
+    <h3>Project Nameplate</h3>
+    <p>Adobe Illustrator mock-ups and the nameplate I helped design and ship with the cohort.</p>
+    <span class="arrow">read →</span>
+  </a>
+  <a class="project-card" href="Attempt%231.html" style="--card-accent: #ff5b3a;">
+    <span class="tag">// Iteration</span>
+    <h3>Attempt #1</h3>
+    <p>An early attempt — kept here as a reminder that the first try usually is not the final one.</p>
+    <span class="arrow">read →</span>
+  </a>
+</div>
 
-
-
-## Project Nameplate
-Over the course of the past month, my fellow innovators and I have learned and explored new tools and new methods to designing and creating, I have created this page to display some of the things that I have created over the course of project nameplate.
-
-### Digital Design
-When designating roles for making the nameplates I signed myself up for the mock up team. Me and my partner went through multiple designs, testing and changing over and over again until we felt comfortable bringing a piece of work to the class. Below I will list display a few of the designs that I have created.
-![First](https://github.com/user-attachments/assets/6eeb7bd3-bdc8-435e-b488-0a71b1a33814)
-![Final](https://github.com/user-attachments/assets/fe497a14-d74a-4887-995d-2e3657210ca8)
-
-
-### Adobe Illustrator
-One thing that I am proud to say that I have learned is Adobe Illustrator. I used it quite frequently throughout the project, so I became quite comfortable with it, learning all the controls and everything that comes with it. I can now say that whenever I need to design something digitally I can go and use Adobe Illustrator. For more reference view the pictures above, as there are numerous more designs that are very similar. 
-
-### Final Design
-Although I can not take credit for the tremendous amount of work my fellow innovators have put in, I can say that I did partially help with the design template, but everything else is coming from them. I will display what our classrooom has designed over the course of the past month.
-
-
-![Matte](https://github.com/user-attachments/assets/eb574157-f38f-4fef-aa09-39cd181242e3)
-
-
-![White](https://github.com/user-attachments/assets/3d031bf7-4f12-49ec-8175-b0cc9808ade1)
-
-
-Visit [My Vr Case Studies](VR Case Studies.md) to see what I have done with the Meta Quest Pro
-<img width="429" height="266" alt="image" src="https://github.com/user-attachments/assets/7cbc3e15-8d2d-4c0d-82db-dd864f8500a9" />
-
-
-
-See our progress when working with a scanner [Arduino](3d Scanner.md)
-![CA3359D7-8228-4F01-A735-E5E335BFC824_1_105_c](https://github.com/user-attachments/assets/4755fed4-d3f0-434c-8474-134a7176c9cf)
-
-Days 3-8 Progress [Journal #3](Journal3.md)
-
-
-LifeTrack: The App for everyday life [LifeTrack](LifeTrack.md)
-
-<img width="700" height="645" alt="Screenshot 2026-01-19 at 5 55 08 PM" src="https://github.com/user-attachments/assets/8c57fa81-2b09-4dea-b050-4d0cf652c81c" />
-
-Webb Sports [Sports Hub](DataAnalyticswithAI.md) 
-
-We had a micro sprint focusing on the 17 SDGs, and here is the research I conducted [Digital Equity](SDGMicroSprint.md)
-
-A mini reflection before Spring Break [Spring Break!!!!](ReflectionBfrSB.md)
-
+What's next
+Heading toward the USC visit on May 13. The plan: ship a polished demo of Webb Sports Hub end-to-end, and have this portfolio looking the way I want it to look when other people see it. Trying to keep the scope tight — finish one thing well instead of leaving three things half-done.
