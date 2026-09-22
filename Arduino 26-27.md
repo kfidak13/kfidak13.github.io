@@ -8,7 +8,7 @@ This project started as a way to learn how a piezo buzzer actually makes sound, 
 
 I started with one piezo buzzer on the breadboard and picked Für Elise as my first target, mostly because I already know how it's supposed to sound, so I'd immediately notice if a note or timing value was wrong. That made it the fastest way to learn the actual mechanics: how `tone(pin, frequency, duration)` works, why `delay()` has to line up with each note so they don't overlap or leave dead air, and how to store a whole melody as parallel arrays (one for pitch, one for length) instead of writing a separate line of code for every single note.
 
-<img width="1080" height="1920" alt="48805C60-A084-4241-9B00-126957C0E12A_1_102_o" src="https://github.com/user-attachments/assets/3ac533af-f5f2-4e5c-9cfd-f92330cefb46" />
+<img width="600" height="1000" alt="48805C60-A084-4241-9B00-126957C0E12A_1_102_o" src="https://github.com/user-attachments/assets/3ac533af-f5f2-4e5c-9cfd-f92330cefb46" />
 
 ## Phase 2: Human voice
 
@@ -23,7 +23,7 @@ With the mechanics and the layering worked out, I moved from playing existing so
 - **Act 3 — The chase:** played twice, with the second pass sped up to build tension.
 - **Act 4 — Triumph:** a real crescendo to close it out.
 
-<img width="1080" height="1920" alt="42336171-AAFD-4D98-B20D-05C2BB48B5A5_1_102_o" src="https://github.com/user-attachments/assets/dcc6d3cd-7901-4bed-991f-29077ac9f8e1" />
+<img width="600" height="1000" alt="42336171-AAFD-4D98-B20D-05C2BB48B5A5_1_102_o" src="https://github.com/user-attachments/assets/dcc6d3cd-7901-4bed-991f-29077ac9f8e1" />
 
 Building it this way meant the "feel" of each act came down to tuning a handful of parameters - tempo, gap between notes, duration scaling - instead of rewriting the playback logic four separate times.
 
