@@ -43,7 +43,7 @@ if (i >= numNotes - 4) {
 }
 ```
 
-**Volume.** The built-in `tone()` function doesn't have a volume knob — it always drives the buzzer with a fixed 50% duty cycle square wave, so every note comes out at the same loudness no matter what. To get real dynamics, I dropped `tone()` entirely and wrote my own note-playing function, `playTwoNotes()`, that bit-bangs the pins directly with `digitalWrite()` and `delayMicroseconds()`.
+**Volume.** The built-in `tone()` function doesn't have a volume knob — it always drives the buzzer with a fixed 50% duty cycle square wave, so every note comes out at the same loudness no matter what. To get real dynamics, I dropped `tone()` entirely and wrote my own note-playing function, `playTwoNotes()`, that bit-bangs the pins directly with `digitalWrite()` and `delayMicroseconds()`. (WebbGpt)
 
 The trick is that a piezo doesn't get louder from higher voltage the way a speaker does; it gets louder (or thinner and quieter) based on how long the pin is held HIGH within each cycle of the wave, i.e. the duty cycle. So for every note Webbgpt calculated the full period of the wave from its frequency, then use a `vol` parameter to decide what fraction of that period the pin actually stays HIGH:
 
