@@ -16,7 +16,7 @@ Once the basics clicked, I tried to get the buzzer to sound less like a beep and
 
 ## Phase 3: writing an original piece
 
-With the mechanics and the layering worked out, I moved from playing existing songs to writing my own. The first version structures the piece into four labeled "acts," each built the same way — a melody array, a bass array, a duration array — but fed into one shared `playSection()` function with different tempo, note-length, and duration-scaling values:
+With the mechanics and the layering worked out with webbgpt, I moved from playing existing songs to writing my own. The first version structures the piece into four labeled "acts," each built the same way: a melody array, a bass array, a duration array, but fed into one shared `playSection()` function with different tempo, note-length, and duration-scaling values:
 
 - **Act 1 — Welcome and wistful:** a slow, quiet opening.
 - **Act 2 — Slow, dark, flowing:** lower notes, longer note lengths.
@@ -25,7 +25,7 @@ With the mechanics and the layering worked out, I moved from playing existing so
 
 <img width="600" height="1000" alt="42336171-AAFD-4D98-B20D-05C2BB48B5A5_1_102_o" src="https://github.com/user-attachments/assets/dcc6d3cd-7901-4bed-991f-29077ac9f8e1" />
 
-Building it this way meant the "feel" of each act came down to tuning a handful of parameters - tempo, gap between notes, duration scaling - instead of rewriting the playback logic four separate times.
+Building it this way meant the "feel" of each act came down to tuning a handful of limits - tempo, gap between notes, duration scaling - instead of having webbgpt rewrite the playback logic four separate times.
 
 ## Phase 4: Volume control
 
@@ -45,7 +45,7 @@ if (i >= numNotes - 4) {
 
 **Volume.** The built-in `tone()` function doesn't have a volume knob — it always drives the buzzer with a fixed 50% duty cycle square wave, so every note comes out at the same loudness no matter what. To get real dynamics, I dropped `tone()` entirely and wrote my own note-playing function, `playTwoNotes()`, that bit-bangs the pins directly with `digitalWrite()` and `delayMicroseconds()`.
 
-The trick is that a piezo doesn't get louder from higher voltage the way a speaker does — it gets louder (or thinner and quieter) based on how long the pin is held HIGH within each cycle of the wave, i.e. the duty cycle. So for every note I calculate the full period of the wave from its frequency, then use a `vol` parameter to decide what fraction of that period the pin actually stays HIGH:
+The trick is that a piezo doesn't get louder from higher voltage the way a speaker does; it gets louder (or thinner and quieter) based on how long the pin is held HIGH within each cycle of the wave, i.e. the duty cycle. So for every note Webbgpt calculated the full period of the wave from its frequency, then use a `vol` parameter to decide what fraction of that period the pin actually stays HIGH:
 
 ```cpp
 long period1 = (f1 > 0) ? 1000000L / f1 : 0;
@@ -55,7 +55,7 @@ if (period1 > 0 && high1 < 2) high1 = 2;
 
 A low `vol` means the pin is only HIGH for a tiny sliver of each cycle — a narrow pulse that reads as quiet and thin. A higher `vol` widens that pulse toward a full square wave, which sounds louder and fuller. The `if (high1 < 2)` line just guards against the pulse shrinking to nothing and going silent by accident.
 
-Doing this for two notes at once (melody on pin 3, bass on pin 11) meant I couldn't just use one blocking loop — I run two independent timers (`next1` and `next2`, tracked with `micros()`) inside the same `while` loop, so each pin fires its own pulses on its own schedule without waiting on the other.
+Doing this for two notes at once (melody on pin 3, bass on pin 11) meant I couldn't just use one blocking loop; Webbgpt ran two independent timers (`next1` and `next2`, tracked with `micros()`) inside the same `while` loop, so each pin fires its own pulses on its own schedule without waiting on the other.
 
 Once volume was a real, tunable parameter instead of a fixed constant, I could use it for actual dynamics. In `setup()`, the B section gets a gentle swell by nudging the volume up for that stretch of notes, timed to land on the same stretch where the rubato tempo is also fastest:
 
@@ -199,7 +199,7 @@ void loop() {
 
 ## Reflection
 
-The biggest lesson was that a piezo can be timed and pitched precisely but can't blend timbre the way a real instrument or voice can, so any expressiveness had to come from structure: tempo, dynamics through duty-cycle volume, and repetition with variation rather than from the sound itself. Rewriting the piece as "Gymnopédie in A Minor" pushed that further — instead of hardcoding a mood per section like the first version did, the rubato arc and the volume swell are both derived from the note's position in the piece, so the expression is generated rather than hand-placed. It also pushed me to think about music more structurally than I had before: breaking a piece into named sections, deciding what each one should feel like, then translating something like "wistful" or "triumphant" into actual tempo, duration, and volume values.
+The biggest lesson was that a piezo can be timed and pitched precisely but can't blend timbre the way a real instrument or voice can, so any expressiveness had to come from structure: tempo, dynamics through duty-cycle volume, and repetition with variation rather than from the sound itself. Rewriting the piece as "Gymnopédie in A Minor" pushed that further; instead of hardcoding a mood per section as the first version did, the rubato arc and the volume swell are both derived from the note's position in the piece, so the expression is generated rather than hand-placed. It also pushed me to think about music more structurally than I had before: breaking a piece into named sections, deciding what each one should feel like, then translating something like "wistful" or "triumphant" into actual tempo, duration, and volume values.
 
 ## What's next
 
