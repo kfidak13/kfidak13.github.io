@@ -36,6 +36,12 @@ In the 2026-27 school year, I am taking Tech and Innovation Seminar II. I hope t
 
 📓 Journals & Reflections
 <div class="project-grid">
+  <a class="project-card" href="3d%20Scanner%2026-27.html" style="--card-accent: #fcd34d;">
+    <span class="tag">// 9-30-26 · Tech Sem II</span>
+    <h3>3D Scanner, Round Two</h3>
+    <p>Servo and ultrasonic sensor working, coordinate points coming in. Now moving to stepper motors, and fighting an Arduino connection that won't cooperate.</p>
+    <span class="arrow">read →</span>
+  </a>
   <a class="project-card" href="thinking-outside-the-box.html" style="--card-accent: #6ee7ff;">
     <span class="tag">// 9-7-26 · Tech Sem II</span>
     <h3>Thinking Outside the Box</h3>
