@@ -36,9 +36,15 @@ A distance by itself doesn't mean much for a scan, so the next step was turning 
 
 Servos got us started, but they have limited range and aren't very precise at small steps. A stepper motor moves in exact, repeatable steps and can keep rotating, which is what a scanner needs if we want the points to line up into a real shape. It's also what we ended up using last year, so we know it's the right direction.
 
+<img width="600" alt="Stepper motor fresh out of the box with its dimension sheet" src="images/scanner-2177.jpg" />
+
 ### Where we're stuck
 
-This is as far as we've gotten. We're trying to get the stepper motor connected, but the problem is our breadboard connection. The stepper and its driver run through the breadboard to get to the Arduino, and somewhere along that path the connection isn't holding, so the signal never makes it from the Arduino to the motor. Before we can even test the stepper code, we need that wiring to be solid. Things we're planning to check:
+This is as far as we've gotten. We're trying to get the stepper motor connected, but the problem is our breadboard connection. The stepper and its driver run through the breadboard to get to the Arduino, and somewhere along that path the connection isn't holding, so the signal never makes it from the Arduino to the motor. Before we can even test the stepper code, we need that wiring to be solid.
+
+<img width="600" alt="Arduino wired through the breadboard to the stepper driver" src="images/scanner-2178.jpg" />
+
+Things we're planning to check:
 
 - That each jumper wire is fully seated in the breadboard and in the right row
 - That the driver is actually bridging the right rows, not shorted across the center gap
