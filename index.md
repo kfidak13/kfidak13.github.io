@@ -18,24 +18,24 @@ In the 2026-27 school year, I am taking Tech and Innovation Seminar II. I hope t
 
 ## Main projects
 
-<div class="project-grid">
+<div class="project-grid featured">
   <a class="project-card" href="https://webbathletics.org/dashboard" target="_blank" rel="noopener">
-    <span class="tag">// Live · React + Supabase</span>
+    <span class="tag">Live · React + Supabase</span>
     <h3>Webb Athletics Hub</h3>
     <p>A digital athletics hub for the Webb community. Schedules, rosters, stats, records, and a supervised messaging platform for teams. Built over three months using Windsurf.</p>
-    <span class="arrow">visit live site →</span>
+    <span class="arrow" aria-hidden="true">↗</span>
   </a>
   <a class="project-card" href="https://github.com/kfidak13/team-schedule-hub" target="_blank" rel="noopener">
-    <span class="tag">// Source code</span>
+    <span class="tag">Source code</span>
     <h3>Athletics Hub on GitHub</h3>
     <p>Vite + React + TypeScript + Tailwind frontend. Supabase for auth, database, and realtime messaging. Capacitor scaffolded for future iOS/Android builds.</p>
-    <span class="arrow">view repo →</span>
+    <span class="arrow" aria-hidden="true">↗</span>
   </a>
   <a class="project-card" href="LifeTrack.html">
-    <span class="tag">// Built with Lovable · Client project</span>
+    <span class="tag">Built with Lovable · Client project</span>
     <h3>LifeTrack</h3>
     <p>My first website. Built in two weeks for a Webb journalist who wanted one app instead of five. Delivered to the client and parked while I focused on Athletics Hub.</p>
-    <span class="arrow">read more →</span>
+    <span class="arrow" aria-hidden="true">→</span>
   </a>
 </div>
 
@@ -43,46 +43,46 @@ In the 2026-27 school year, I am taking Tech and Innovation Seminar II. I hope t
 
 <div class="project-grid">
   <a class="project-card" href="3d%20Scanner%2026-27.html">
-    <span class="tag">// 9-30-26 · Tech Sem II</span>
+    <span class="tag">9-30-26 · Tech Sem II</span>
     <h3>3D Scanner, Round Two</h3>
     <p>Servo and ultrasonic sensor working, coordinate points coming in. Now moving to stepper motors, and fighting an Arduino connection that won't cooperate.</p>
-    <span class="arrow">read →</span>
+    <span class="arrow" aria-hidden="true">→</span>
   </a>
   <a class="project-card" href="Arduino%2026-27.html">
-    <span class="tag">// 9-21-26 · Tech Sem II</span>
+    <span class="tag">9-21-26 · Tech Sem II</span>
     <h3>Arduino &amp; Piezo Buzzer</h3>
     <p>From Für Elise to an original four-act composition, written entirely in Arduino code across three piezo buzzers.</p>
-    <span class="arrow">read →</span>
+    <span class="arrow" aria-hidden="true">→</span>
   </a>
   <a class="project-card" href="thinking-outside-the-box.html">
-    <span class="tag">// 9-7-26 · Tech Sem II</span>
+    <span class="tag">9-7-26 · Tech Sem II</span>
     <h3>Thinking Outside the Box</h3>
     <p>One cardboard box, four builds: a passive phone audio director, a cup sleeve, a pencil organizer, and a doorstop. What the material taught me about designing with shape instead of parts.</p>
-    <span class="arrow">read →</span>
+    <span class="arrow" aria-hidden="true">→</span>
   </a>
   <a class="project-card" href="EndoftheBeginning.html">
-    <span class="tag">// 5-13 to 5-30 · Year-end</span>
+    <span class="tag">5-13 to 5-30 · Year-end</span>
     <h3>End of the Beginning</h3>
     <p>The full year-end recap. PNP, Tech Trends, 3D Scanner, LifeTrack, and the personal triumph that is Webb Athletics Hub. The struggles, the wins, and what comes next.</p>
-    <span class="arrow">read →</span>
+    <span class="arrow" aria-hidden="true">→</span>
   </a>
   <a class="project-card" href="Journal4.html">
-    <span class="tag">// 4-30-26</span>
+    <span class="tag">4-30-26</span>
     <h3>Journal #4, Three Weeks In</h3>
     <p>What I built after spring break: Supabase auth, real-time chat, stats tracking, and what I learned the hard way about RLS policies.</p>
-    <span class="arrow">read →</span>
+    <span class="arrow" aria-hidden="true">→</span>
   </a>
   <a class="project-card" href="ReflectionBfrSB.html">
-    <span class="tag">// 3-19-26</span>
+    <span class="tag">3-19-26</span>
     <h3>Reflection Before Spring Break</h3>
     <p>Where I was at heading into the break, what I wanted to come back and finish, and the mental refresh that made it possible.</p>
-    <span class="arrow">read →</span>
+    <span class="arrow" aria-hidden="true">→</span>
   </a>
   <a class="project-card" href="Journal3.html">
-    <span class="tag">// Days 3-8</span>
+    <span class="tag">Days 3-8</span>
     <h3>Journal #3, Early Progress</h3>
     <p>Documenting the first stretch of work in the seminar.</p>
-    <span class="arrow">read →</span>
+    <span class="arrow" aria-hidden="true">→</span>
   </a>
 </div>
 
@@ -90,40 +90,40 @@ In the 2026-27 school year, I am taking Tech and Innovation Seminar II. I hope t
 
 <div class="project-grid">
   <a class="project-card" href="VR%20Case%20Studies.html">
-    <span class="tag">// Hardware</span>
+    <span class="tag">Hardware</span>
     <h3>VR Case Studies</h3>
     <p>What I explored using the Meta Quest Pro. Applications, limitations, and what I learned about the medium.</p>
-    <span class="arrow">read →</span>
+    <span class="arrow" aria-hidden="true">→</span>
   </a>
   <a class="project-card" href="3d%20Scanner.html">
-    <span class="tag">// Arduino</span>
+    <span class="tag">Arduino</span>
     <h3>3D Scanner</h3>
     <p>Group progress on building a working 3D scanner using Arduino and a stepper motor.</p>
-    <span class="arrow">read →</span>
+    <span class="arrow" aria-hidden="true">→</span>
   </a>
   <a class="project-card" href="DataAnalyticswithAI.html">
-    <span class="tag">// AI · Data</span>
+    <span class="tag">AI · Data</span>
     <h3>Data Analytics with AI</h3>
     <p>Early-stage thinking that became Webb Athletics Hub.</p>
-    <span class="arrow">read →</span>
+    <span class="arrow" aria-hidden="true">→</span>
   </a>
   <a class="project-card" href="SDGMicroSprint.html">
-    <span class="tag">// Micro-sprint</span>
+    <span class="tag">Micro-sprint</span>
     <h3>Digital Equity (SDG)</h3>
     <p>Research on the UN's Sustainable Development Goals, focused on digital equity.</p>
-    <span class="arrow">read →</span>
+    <span class="arrow" aria-hidden="true">→</span>
   </a>
   <a class="project-card" href="PNP.html">
-    <span class="tag">// Design</span>
+    <span class="tag">Design</span>
     <h3>Project Nameplate</h3>
     <p>The project that started it all. Adobe Illustrator mock-ups and the nameplate I helped design and ship with the cohort for the admissions team.</p>
-    <span class="arrow">read →</span>
+    <span class="arrow" aria-hidden="true">→</span>
   </a>
   <a class="project-card" href="Attempt%231.html">
-    <span class="tag">// Iteration</span>
+    <span class="tag">Iteration</span>
     <h3>Attempt #1</h3>
     <p>An early attempt. Kept here as a reminder that the first try usually is not the final one.</p>
-    <span class="arrow">read →</span>
+    <span class="arrow" aria-hidden="true">→</span>
   </a>
 </div>
 
