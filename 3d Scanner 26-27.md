@@ -38,12 +38,12 @@ Servos got us started, but they have limited range and aren't very precise at sm
 
 ### Where we're stuck
 
-This is as far as we've gotten. We're trying to get the stepper motor connected, but right now the connection to the Arduino itself is failing. Before we can even test the stepper code, we need the laptop and the Arduino talking to each other again. Things we're planning to check:
+This is as far as we've gotten. We're trying to get the stepper motor connected, but the problem is our breadboard connection. The stepper and its driver run through the breadboard to get to the Arduino, and somewhere along that path the connection isn't holding, so the signal never makes it from the Arduino to the motor. Before we can even test the stepper code, we need that wiring to be solid. Things we're planning to check:
 
-- The USB cable (some cables only charge and don't carry data)
-- That the right board and port are selected in the Arduino IDE
-- That nothing wired to the pins is interfering with the upload
-- Whether the stepper should be powered separately instead of drawing from the Arduino
+- That each jumper wire is fully seated in the breadboard and in the right row
+- That the driver is actually bridging the right rows, not shorted across the center gap
+- That the power rails are connected all the way across (some breadboards split them in the middle)
+- That the Arduino and the stepper's power supply share a common ground
 
 ## Personal Journey
 
@@ -51,7 +51,7 @@ This is as far as we've gotten. We're trying to get the stepper motor connected,
 Getting the servo and the coordinate points working felt good, especially since it went faster than last year. We weren't starting from zero this time.
 
 ### How feelings changed
-Hitting the connection problem was frustrating because it's not even the stepper that's broken yet, it's the step before that. But last year taught me that a lot of this project is being patient and ruling things out one at a time until it works.
+Hitting the connection problem was frustrating because it's not even the stepper that's broken yet, it's the wiring in between. But last year taught me that a lot of this project is being patient and ruling things out one at a time until it works.
 
 ### What's next
 Get the Arduino connecting reliably, get the stepper moving, then swap it in for the servo so we can start collecting coordinate points with real precision.

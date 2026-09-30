@@ -42,6 +42,12 @@ In the 2026-27 school year, I am taking Tech and Innovation Seminar II. I hope t
     <p>Servo and ultrasonic sensor working, coordinate points coming in. Now moving to stepper motors, and fighting an Arduino connection that won't cooperate.</p>
     <span class="arrow">read →</span>
   </a>
+  <a class="project-card" href="Arduino%2026-27.html" style="--card-accent: #ff5b3a;">
+    <span class="tag">// 9-21-26 · Tech Sem II</span>
+    <h3>Arduino &amp; Piezo Buzzer</h3>
+    <p>From Für Elise to an original four-act composition, written entirely in Arduino code across three piezo buzzers.</p>
+    <span class="arrow">read →</span>
+  </a>
   <a class="project-card" href="thinking-outside-the-box.html" style="--card-accent: #6ee7ff;">
     <span class="tag">// 9-7-26 · Tech Sem II</span>
     <h3>Thinking Outside the Box</h3>
