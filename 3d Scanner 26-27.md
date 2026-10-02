@@ -1,4 +1,4 @@
-# 9-30-26 · 3D Scanner, Round Two: From Servos to Steppers
+# 10-2-26 · 3D Scanner, Round Two: From Servos to Steppers
 
 ## Overview
 
@@ -38,18 +38,26 @@ Servos got us started, but they have limited range and aren't very precise at sm
 
 <img width="600" alt="Stepper motor fresh out of the box with its dimension sheet" src="images/scanner-2177.jpg" />
 
-### Where we're stuck
+### The breadboard problem
 
-This is as far as we've gotten. We're trying to get the stepper motor connected, but the problem is our breadboard connection. The stepper and its driver run through the breadboard to get to the Arduino, and somewhere along that path the connection isn't holding, so the signal never makes it from the Arduino to the motor. Before we can even test the stepper code, we need that wiring to be solid.
+Our first attempt at getting the stepper connected stalled because of our breadboard connection. The stepper and its driver run through the breadboard to get to the Arduino, and somewhere along that path the connection isn't holding, so the signal never makes it from the Arduino to the motor. Before we can even test the stepper code, we need that wiring to be solid.
 
 <img width="600" alt="Arduino wired through the breadboard to the stepper driver" src="images/scanner-2178.jpg" />
 
-Things we're planning to check:
+Things we planned to check:
 
 - That each jumper wire is fully seated in the breadboard and in the right row
 - That the driver is actually bridging the right rows, not shorted across the center gap
 - That the power rails are connected all the way across (some breadboards split them in the middle)
 - That the Arduino and the stepper's power supply share a common ground
+
+### Getting it moving
+
+Once we sorted out the breadboard connection, the signal finally made it from the Arduino through the driver to the motor, and the stepper started turning. We put a small piece of tape on the shaft as a flag so we could actually see it rotate and tell how far each step moved it.
+
+<img width="360" alt="Testing the stepper with the wiring connected" src="images/stepper-moving-1.jpg" />
+
+<img width="360" alt="Stepper motor spinning with a tape flag on the shaft" src="images/stepper-moving-2.jpg" />
 
 ## Personal Journey
 
@@ -57,7 +65,7 @@ Things we're planning to check:
 Getting the servo and the coordinate points working felt good, especially since it went faster than last year. We weren't starting from zero this time.
 
 ### How feelings changed
-Hitting the connection problem was frustrating because it's not even the stepper that's broken yet, it's the wiring in between. But last year taught me that a lot of this project is being patient and ruling things out one at a time until it works.
+Hitting the connection problem was frustrating because it wasn't even the stepper that was broken, it was the wiring in between. But last year taught me that a lot of this project is being patient and ruling things out one at a time until it works, and that's exactly what happened. Seeing the shaft finally spin made all of it worth it.
 
 ### What's next
-Get the Arduino connecting reliably, get the stepper moving, then swap it in for the servo so we can start collecting coordinate points with real precision.
+Now that the stepper moves, the next step is to mount the ultrasonic sensor on it in place of the servo and start collecting coordinate points with real precision.

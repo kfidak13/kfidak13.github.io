@@ -43,9 +43,9 @@ In the 2026-27 school year, I am taking Tech and Innovation Seminar II. I hope t
 
 <div class="project-grid">
   <a class="project-card" href="3d%20Scanner%2026-27.html">
-    <span class="tag">9-30-26 · Tech Sem II</span>
+    <span class="tag">10-2-26 · Tech Sem II</span>
     <h3>3D Scanner, Round Two</h3>
-    <p>Servo and ultrasonic sensor working, coordinate points coming in. Now moving to stepper motors, and fighting an Arduino connection that won't cooperate.</p>
+    <p>Servo and ultrasonic sensor working, coordinate points coming in, and after a fight with our breadboard wiring, the stepper motor is finally moving.</p>
     <span class="arrow" aria-hidden="true">→</span>
   </a>
   <a class="project-card" href="Arduino%2026-27.html">
