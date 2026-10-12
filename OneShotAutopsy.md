@@ -358,3 +358,5 @@ In class, we were given the goal to one-shot vibe code a game. I was immediately
 </body>
 </html>
 
+## What I Noticed
+The HTML code really struggled with physics; it had a good GUI but struggled with the slingshot mechanics and the breaking of the tower. Immediately the first thing that happens is,
