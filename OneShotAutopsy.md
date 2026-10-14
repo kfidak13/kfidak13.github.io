@@ -398,7 +398,7 @@ Everything else is placed relative to those two numbers. The ground sits at `GRO
 
 ### The state variables
 
-These are the values the game keeps track of, all declared near the top of the script:
+These are the values the game keeps track of. Most are declared near the top of the script with `let` or `const`, except `gameOver`, which is declared further down right above the win and lose functions:
 
 | Variable | What it tracks |
 |---|---|
