@@ -1,10 +1,25 @@
-# One Shot Autopsy
+# 10-12-26 · One Shot Autopsy: Angry Piggies
 
 ## The Game
-In class, we were given the goal to one-shot vibe code a game. I was immediately skeptical of the capabilities of AI being able to do that, as I am familiar with AI coding and I know that it takes a ton of planning for an AI to get it right. So, I prompted it this: "Alright I need a game like angry birds, where you have a catapult and you launch something. Instead I want to throw a twist on it, I want it to be the piggies going at the birds instead of the other way around. I need this to be a one shot . I need simple features, simple slingshot that launches a round pig and a structure that has breaking physics. The structure will have the birds on it and the goal is to get them to fall, don't go to complicated keep it simple and focus on core game mechanics". Looking back on it, I could have phrased it better for the AI to understand what I was saying, but we were just doing a quick one-shot, so not too much detail was included in the prompt.
+
+In class, we were given the goal to one-shot vibe code a game. I was immediately skeptical of the capabilities of AI being able to do that, as I am familiar with AI coding and I know that it takes a ton of planning for an AI to get it right. So, I gave it this prompt:
+
+> Alright I need a game like angry birds, where you have a catapult and you launch something. Instead I want to throw a twist on it, I want it to be the piggies going at the birds instead of the other way around. I need this to be a one shot. I need simple features, simple slingshot that launches a round pig and a structure that has breaking physics. The structure will have the birds on it and the goal is to get them to fall, don't go to complicated keep it simple and focus on core game mechanics.
+
+Looking back on it, I could have phrased it better for the AI to understand what I was saying, but we were just doing a quick one-shot, so not too much detail was included in the prompt.
 
 ## The Return
 
+The AI came back with a single HTML file it called "Angry Piggies." It used Matter.js, a JavaScript physics library, to handle the slingshot, the tower, and the collisions. You get three pigs to launch at a two-level wooden tower with four birds on it, plus a small scoreboard and a win or game over message at the end.
+
+<img width="1280" height="720" alt="The Angry Piggies game the AI made: a green pig on a slingshot and a two-level wooden tower with four birds on it" src="images/angry-piggies.png" />
+
+[Play the game yourself](games/angry-piggies.html) (drag the pig back and let go to launch it).
+
+<details markdown="1">
+<summary>View the full code the AI returned</summary>
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -357,6 +372,12 @@ In class, we were given the goal to one-shot vibe code a game. I was immediately
 </script>
 </body>
 </html>
+```
+
+</details>
 
 ## What I Noticed
-The HTML code really struggled with physics; it had a good GUI but struggled with the slingshot mechanics and the breaking of the tower. Immediately the first thing that happens is,
+
+The game really struggled with physics. It had a good-looking GUI, but the slingshot mechanics and the breaking of the tower never worked the way they should. You can even see it in the screenshot above: the bottom pillars are already darkened, which is how the game shows a damaged block, before a single pig has been launched.
+
+That lined up with what I expected going in. AI isn't at the point yet where it can take one prompt and build a whole working game from it. To get something like this right, it either needs a lot of context and clear limits to keep it focused on what you actually want, or it needs real planning done ahead of time, before any code gets written. A one-shot skips both of those, so you end up with something that looks finished on the surface but falls apart once you actually play it.

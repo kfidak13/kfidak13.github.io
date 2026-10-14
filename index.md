@@ -42,6 +42,12 @@ In the 2026-27 school year, I am taking Tech and Innovation Seminar II. I hope t
 ## Journals & reflections
 
 <div class="project-grid">
+  <a class="project-card" href="OneShotAutopsy.html">
+    <span class="tag">10-12-26 · Tech Sem II</span>
+    <h3>One Shot Autopsy: Angry Piggies</h3>
+    <p>Can AI build a whole game from one prompt? I asked for a reverse Angry Birds and took apart what came back. Playable, with the full code.</p>
+    <span class="arrow" aria-hidden="true">→</span>
+  </a>
   <a class="project-card" href="3d%20Scanner%2026-27.html">
     <span class="tag">10-2-26 · Tech Sem II</span>
     <h3>3D Scanner, Round Two</h3>
