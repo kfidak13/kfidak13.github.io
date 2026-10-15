@@ -491,7 +491,7 @@ That lined up with what I expected going in. AI isn't at the point yet where it 
 
 ## Round Two: The New Version
 
-After the autopsy, I made a second version of Angry Piggies using Devin, an AI coding agent. The code lives in its own repo, [AngryPigsCode](https://github.com/kfidak13/AngryPigsCode), and the changes line up directly with the bugs I found in the first version.
+After the autopsy, I made a second version of Angry Piggies using Devin, an AI coding agent. This time, instead of a one-shot, we planned it out first, then had the AI build from that plan. The code lives in its own repo, [AngryPigsCode](https://github.com/kfidak13/AngryPigsCode), and the changes line up directly with the bugs I found in the first version.
 
 [Play the new version](games/angry-piggies-v2/index.html) and compare it to [the original one-shot](games/angry-piggies.html).
 
@@ -543,12 +543,18 @@ This time, pulling back actually launches the pig. The dotted aim line shows the
 
 <img width="1280" height="720" alt="The You Win card: all 4 birds knocked out with 2 pigs to spare" src="images/piggies-v2-win.jpg" />
 
-In my test, one full pull knocked out all four birds with two pigs to spare. That's a huge jump from the one-shot, where none of the three pigs even reached the tower.
+In my test, one full pull knocked out all four birds with two pigs to spare. That's a huge jump from the one-shot, where none of the three pigs even reached the tower, but it also means the game is now too easy. Winning with your first pig shouldn't be possible.
 
 ### Checking my goals
 
+- **Plan before I prompt:** done. We planned the new version out before handing it to the AI, and the result is night and day compared to the one-shot.
 - **Fix the two physics bugs:** done. The pillars start undamaged and sit on the ground properly.
 - **Make the slingshot actually launch:** done. A full pull now reaches the tower and knocks it down.
-- **Add a real score and a restart key:** not yet. There's still no score, and the lose card says to refresh the page to try again. This is the next thing I want to add.
+- **Add a real score and a restart key:** not yet. There's still no score, and the lose card says to refresh the page to try again. This is still on my list.
 
-Comparing the two versions backs up what I noticed the first time. The one-shot looked fine but didn't work. The new version goes after the exact problems the autopsy found, and it even organizes the code better. That's the difference between asking for a whole game in one prompt and knowing exactly what needs to be fixed.
+Comparing the two versions backs up what I noticed the first time. The one-shot looked fine but didn't work. With a plan, the new version goes after the exact problems the autopsy found, and it even organizes the code better. That's the difference between asking for a whole game in one prompt and planning it out first.
+
+### Next steps
+
+1. **Make it harder.** Now that the physics works, one pig is enough to win, so the challenge is gone. I'll use the Tuning section to make blocks tougher (`BLOCK_BREAK_IMPACT`) and lower the pull limit (`PULL_LIMIT`), and try a stronger tower design. The goal is a level that takes at least two good shots to beat.
+2. **Add a score and a restart key.** Carried over from this week: a score for every bird and block, and pressing R to restart instead of refreshing.
