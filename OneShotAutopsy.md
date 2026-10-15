@@ -488,3 +488,67 @@ That lined up with what I expected going in. AI isn't at the point yet where it 
 2. **Fix the two physics bugs I found myself.** I'll change the impact check so it ignores static bodies like the ground, and move the bottom pillars so they don't start inside the ground. I'll know it worked when the pillars are no longer damaged at the start and the tower only breaks when a pig actually hits it.
 3. **Make the slingshot actually launch.** I'll experiment with the elastic's `stiffness` and how long it stays attached, or give the pig a launch speed based on how far it was pulled back. The goal is a pig that reaches the tower on a full pull.
 4. **Add a real score and a restart key.** Since the game has no score and no keyboard controls, I'll add a `score` variable that goes up for each bird knocked out and each block broken, plus a key listener so pressing R restarts the level. This gives me practice with the two parts of the autopsy the AI skipped.
+
+## Round Two: The New Version
+
+After the autopsy, I made a second version of Angry Piggies using Devin, an AI coding agent. The code lives in its own repo, [AngryPigsCode](https://github.com/kfidak13/AngryPigsCode), and the changes line up directly with the bugs I found in the first version.
+
+[Play the new version](games/angry-piggies-v2/index.html) and compare it to [the original one-shot](games/angry-piggies.html).
+
+<img width="1280" height="720" alt="The new Angry Piggies: a sky with clouds and a sun, rolling hills, a wooden slingshot holding a green pig, and a wood and stone tower with four birds" src="images/piggies-v2-start.jpg" />
+
+### What changed
+
+| | One-shot version | New version |
+|---|---|---|
+| **Files** | One HTML file, about 350 lines | Split into `index.html`, `style.css`, and `game.js`, about 1,200 lines |
+| **Slingshot** | Loose elastic (`stiffness: 0.05`) cut after 60 ms, so the pig flopped onto the post | Stiffer elastic (`0.10`) that lets go the moment the pig passes back through the slingshot, with the pull capped at 160 px |
+| **Aiming** | No preview | A dotted line shows where the pig will fly before you let go |
+| **Ground damage** | The ground's infinite mass counted as a huge hit, so blocks started damaged | Static objects use the block's own mass instead, and nothing can take damage during the first second while the tower settles |
+| **Pillars** | Started 20 px inside the ground | The ground was moved down so the pillars sit right on top of it |
+| **Birds** | Only knocked out by touching the pig or hitting the ground fast | Knocked out by any real impact, like a falling block |
+| **Next pig** | Loaded on a fixed 3.5 second timer | Loads once the pig stops moving, leaves the screen, or after 7 seconds |
+| **Visuals** | Plain shapes on a blue background | Custom drawing: sky, sun, moving clouds, hills, wood and stone blocks that crack, dust and star effects, icon HUD, and win and lose cards |
+
+### How the fixes work
+
+The ground damage fix is one line. Instead of always multiplying by the other object's mass, it checks if that object is static first:
+
+```js
+const m = other.isStatic ? body.mass : other.mass;
+const impact = relSpeed * m;
+```
+
+So a block resting on the ground only gets hurt by its own weight moving fast, not by the ground's infinite mass.
+
+The slingshot fix replaces the 60 ms timer with a check that runs every frame. It lets go of the pig right when it crosses back through the sling point, which is the moment it's moving fastest:
+
+```js
+if (Vector.dot(travel, releaseDir) <= 0 || now - releaseAt > ELASTIC_DETACH_MS) {
+  detachSling();
+}
+```
+
+The new version also pulls all the important numbers into a "Tuning" section at the top of `game.js` (like `PULL_LIMIT`, `ELASTIC_STIFFNESS`, and `BLOCK_BREAK_IMPACT`), so changing how the game feels means editing one number instead of hunting through the code.
+
+### How it plays
+
+This time, pulling back actually launches the pig. The dotted aim line shows the arc, the pig flies all the way to the tower, and the hit cracks the stone, knocks the pillars loose, and brings the whole tower down.
+
+<img width="1280" height="720" alt="Pulling the pig back on the slingshot with a dotted aim line arcing toward the tower" src="images/piggies-v2-aim.jpg" />
+
+<img width="1280" height="720" alt="The pig flying through the air toward the tower" src="images/piggies-v2-flight.jpg" />
+
+<img width="1280" height="720" alt="The pig hitting the tower: the stone bridge cracks and the bottom pillars tilt over" src="images/piggies-v2-impact.jpg" />
+
+<img width="1280" height="720" alt="The You Win card: all 4 birds knocked out with 2 pigs to spare" src="images/piggies-v2-win.jpg" />
+
+In my test, one full pull knocked out all four birds with two pigs to spare. That's a huge jump from the one-shot, where none of the three pigs even reached the tower.
+
+### Checking my goals
+
+- **Fix the two physics bugs:** done. The pillars start undamaged and sit on the ground properly.
+- **Make the slingshot actually launch:** done. A full pull now reaches the tower and knocks it down.
+- **Add a real score and a restart key:** not yet. There's still no score, and the lose card says to refresh the page to try again. This is the next thing I want to add.
+
+Comparing the two versions backs up what I noticed the first time. The one-shot looked fine but didn't work. The new version goes after the exact problems the autopsy found, and it even organizes the code better. That's the difference between asking for a whole game in one prompt and knowing exactly what needs to be fixed.

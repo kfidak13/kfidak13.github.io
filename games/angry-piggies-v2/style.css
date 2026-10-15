@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@600;800&display=swap');
+
+html, body { margin: 0; padding: 0; overflow: hidden; background: #d9f1fb; font-family: 'Nunito', Arial, Helvetica, sans-serif; }
+canvas { display: block; cursor: grab; }
+canvas:active { cursor: grabbing; }
+
+#hud {
+  position: absolute; top: 14px; left: 14px;
+  display: flex; flex-direction: column; gap: 6px;
+  padding: 10px 16px 10px 12px;
+  background: rgba(20, 45, 20, 0.45);
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(4px);
+  user-select: none; pointer-events: none;
+}
+#hud .row { display: flex; align-items: center; gap: 4px; }
+#hud .label {
+  font-family: 'Lilita One', 'Nunito', sans-serif; color: #fff; font-size: 18px; letter-spacing: 0.5px;
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.35); width: 52px;
+}
+#hud .slot { display: inline-flex; width: 28px; height: 28px; transition: opacity 0.3s, transform 0.3s; }
+#hud .slot.used { opacity: 0.25; transform: scale(0.85); }
+#hud .icon { width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.3)); }
+#hud .icon.out { opacity: 0.55; }
+
+#message {
+  position: absolute; inset: 0; display: none;
+  align-items: center; justify-content: center;
+  background: rgba(10, 30, 50, 0.25);
+  user-select: none; pointer-events: none;
+  animation: fade-in 0.4s ease-out;
+}
+#message .card {
+  padding: 28px 48px 30px; text-align: center;
+  border-radius: 24px; border: 4px solid #fff;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.3), inset 0 -6px 0 rgba(0, 0, 0, 0.15);
+  animation: pop-in 0.55s cubic-bezier(0.2, 1.4, 0.4, 1);
+}
+#message .card.win { background: linear-gradient(180deg, #8fdb55, #4f9f2a); }
+#message .card.lose { background: linear-gradient(180deg, #ef6b5a, #b6382a); }
+#message h1 {
+  margin: 0 0 8px; font-family: 'Lilita One', 'Nunito', sans-serif;
+  font-size: 64px; letter-spacing: 2px; color: #fff;
+  text-shadow: 0 4px 0 rgba(0, 0, 0, 0.3);
+}
+#message p { margin: 0; font-size: 20px; font-weight: 800; color: rgba(255, 255, 255, 0.92); }
+
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes pop-in { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }

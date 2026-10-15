@@ -45,7 +45,7 @@ In the 2026-27 school year, I am taking Tech and Innovation Seminar II. I hope t
   <a class="project-card" href="OneShotAutopsy.html">
     <span class="tag">10-12-26 · Tech Sem II</span>
     <h3>One Shot Autopsy: Angry Piggies</h3>
-    <p>Can AI build a whole game from one prompt? I asked for a reverse Angry Birds, took the code apart piece by piece, found why the physics broke, and set goals to fix it.</p>
+    <p>Can AI build a whole game from one prompt? I asked for a reverse Angry Birds, took the code apart to find why the physics broke, then rebuilt it into a version that actually works.</p>
     <span class="arrow" aria-hidden="true">→</span>
   </a>
   <a class="project-card" href="3d%20Scanner%2026-27.html">
