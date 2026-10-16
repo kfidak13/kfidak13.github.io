@@ -20,6 +20,7 @@ canvas:active { cursor: grabbing; }
   font-family: 'Lilita One', 'Nunito', sans-serif; color: #fff; font-size: 18px; letter-spacing: 0.5px;
   text-shadow: 0 2px 0 rgba(0, 0, 0, 0.35); width: 52px;
 }
+#hud .name { color: #fff; font-size: 15px; font-weight: 800; text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35); }
 #hud .slot { display: inline-flex; width: 28px; height: 28px; transition: opacity 0.3s, transform 0.3s; }
 #hud .slot.used { opacity: 0.25; transform: scale(0.85); }
 #hud .icon { width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.3)); }
@@ -46,6 +47,13 @@ canvas:active { cursor: grabbing; }
   text-shadow: 0 4px 0 rgba(0, 0, 0, 0.3);
 }
 #message p { margin: 0; font-size: 20px; font-weight: 800; color: rgba(255, 255, 255, 0.92); }
+#message button {
+  margin-top: 20px; padding: 10px 28px; pointer-events: auto; cursor: pointer;
+  font-family: 'Lilita One', 'Nunito', sans-serif; font-size: 24px; letter-spacing: 1px; color: #fff;
+  background: rgba(0, 0, 0, 0.25); border: 3px solid #fff; border-radius: 14px;
+  box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.2);
+}
+#message button:hover { background: rgba(0, 0, 0, 0.35); }
 
 @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
 @keyframes pop-in { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }

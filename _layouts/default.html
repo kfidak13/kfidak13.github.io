@@ -223,6 +223,11 @@
   .article th, .article td { text-align: left; padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--line); vertical-align: top; }
   .article th { font-weight: 600; color: var(--ink-dim); }
   .article div.highlighter-rouge + p, .article p + div.highlighter-rouge { margin-top: 1rem; }
+  .level-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin: 2rem 0; }
+  .level-grid a { display: block; text-decoration: none !important; color: var(--ink-dim) !important; font-size: 0.9rem; }
+  .level-grid img { margin: 0 0 0.45rem; width: 100%; transition: transform 0.4s var(--ease); }
+  .level-grid a:hover img { transform: translateY(-3px); }
+  .level-grid a:hover { color: var(--ink) !important; }
   .article details { margin: 1.75rem 0; }
   .article summary {
     cursor: pointer;
@@ -390,7 +395,7 @@
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightboxImg');
   const closeLightbox = () => { lightbox.classList.remove('open'); document.body.style.overflow = ''; };
-  document.querySelectorAll('.article img').forEach(img => {
+  document.querySelectorAll('.article img:not(.level-grid img)').forEach(img => {
     img.addEventListener('click', () => {
       lightboxImg.src = img.src;
       lightboxImg.alt = img.alt;

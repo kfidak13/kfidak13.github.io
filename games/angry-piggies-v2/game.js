@@ -9,7 +9,6 @@
   const SLING_X = 180;
   const SLING_Y = GROUND_Y - 140;
   const SLING_POINT = { x: SLING_X, y: SLING_Y };
-  const TOTAL_PIGS = 3;
 
   const STEP_MS = 1000 / 60;
 
@@ -21,9 +20,9 @@
   const DRAG_STIFFNESS = 0.01;        // softened while dragging so the mouse reaches the pull limit
   const ELASTIC_DETACH_MS = 500;      // safety release if the crossing check is missed
   const LAUNCH_SPEED_PER_PULL = 0.26; // measured launch speed (px/step) per px of pull
-  const AIM_PREVIEW_MS = 700;         // only the first part of the flight is previewed
+  const AIM_PREVIEW_MS = 700;         // only the first part of the flight is previewed (levels may shorten it)
   const BLOCK_BREAK_IMPACT = 120;
-  const BIRD_KO_IMPACT = 5;
+  const BIRD_DAZE_IMPACT = 5;         // hits on a tough bird above this show stars but don't knock it out
   const SETTLE_GRACE_MS = 1000;
   const PIG_REST_SPEED = 0.3;
   const PIG_REST_MS = 1000;
@@ -72,7 +71,7 @@
   // --- Pig (projectile) ---
   let pig = null;
   let sling = null;
-  let pigsLeft = TOTAL_PIGS;
+  let pigsLeft = 0;
   let launched = false;
   let slingAttached = false;
   let shotSettled = false;
@@ -121,12 +120,12 @@
   function addBlock(x, y, w, h, material) {
     const block = Bodies.rectangle(x, y, w, h, {
       label: 'block',
-      density: 0.005,
+      density: MATERIALS[material].density,
       friction: 0.8,
       restitution: 0.1,
       render: { visible: false }
     });
-    block.hitPoints = 2;
+    block.hitPoints = block.maxHitPoints = MATERIALS[material].hp;
     block.material = material;
     block.w = w;
     block.h = h;
@@ -138,10 +137,12 @@
 
   // --- Birds (targets) ---
   const birds = [];
+  // toughness = impact needed to knock the bird out: red falls over, yellow needs a
+  // falling block or the pig, blue needs a solid pig hit or heavy stone
   const BIRD_SKINS = [
-    { body: '#e03a2f', dark: '#8f1c14', belly: '#f6d7b8', brow: '#5a0f0a' },
-    { body: '#f7c23b', dark: '#a8700e', belly: '#fff2c2', brow: '#6b4506' },
-    { body: '#4f9ce0', dark: '#1f4f8a', belly: '#dff0ff', brow: '#163a66' }
+    { body: '#e03a2f', dark: '#8f1c14', belly: '#f6d7b8', brow: '#5a0f0a', toughness: 5 },
+    { body: '#f7c23b', dark: '#a8700e', belly: '#fff2c2', brow: '#6b4506', toughness: 30 },
+    { body: '#4f9ce0', dark: '#1f4f8a', belly: '#dff0ff', brow: '#163a66', toughness: 70 }
   ];
   function addBird(x, y, colorIndex) {
     const bird = Bodies.circle(x, y, BIRD_RADIUS, {
@@ -158,27 +159,121 @@
     return bird;
   }
 
-  function buildLevel() {
+  // --- Levels ---
+  // x is relative to the structure's base point, y is the body's centre height above the ground.
+  // blocks: [x, y, w, h, material], birds: [x, y, skin] (0 red, 1 yellow, 2 blue).
+  // aim: ms of flight shown by the aim preview (default AIM_PREVIEW_MS, 0 = none).
+  const LEVELS = [
+    {
+      name: 'Bridge', pigs: 3,
+      blocks: [
+        [-80, 60, 20, 120, 'wood'], [80, 60, 20, 120, 'wood'], [0, 130, 220, 20, 'stone'],
+        [-50, 190, 20, 100, 'wood'], [50, 190, 20, 100, 'wood'], [0, 250, 160, 20, 'stone']
+      ],
+      birds: [[-40, 16, 0], [40, 16, 0], [0, 156, 0], [0, 276, 0]]
+    },
+    {
+      name: 'Glass House', pigs: 3,
+      blocks: [
+        [-120, 50, 20, 100, 'wood'], [0, 50, 20, 100, 'wood'], [120, 50, 20, 100, 'wood'],
+        [-60, 110, 140, 20, 'glass'], [60, 110, 140, 20, 'glass'],
+        [-60, 160, 20, 80, 'glass'], [60, 160, 20, 80, 'glass'], [0, 210, 160, 20, 'wood']
+      ],
+      birds: [[-60, 16, 0], [60, 16, 0], [-100, 136, 0], [100, 136, 0], [0, 136, 0], [0, 236, 1]]
+    },
+    {
+      name: 'Stone Fort', pigs: 3,
+      blocks: [
+        [-170, 50, 24, 100, 'stone'],
+        [-80, 60, 20, 120, 'stone'], [80, 60, 20, 120, 'stone'], [0, 130, 220, 20, 'wood'],
+        [-50, 190, 20, 100, 'wood'], [50, 190, 20, 100, 'wood'], [0, 250, 160, 20, 'stone']
+      ],
+      birds: [[-40, 16, 1], [40, 16, 0], [0, 156, 0], [0, 276, 1]]
+    },
+    {
+      name: 'Twin Towers', pigs: 4,
+      blocks: [
+        [-165, 60, 20, 120, 'wood'], [-95, 60, 20, 120, 'wood'], [-130, 130, 110, 20, 'wood'],
+        [-170, 180, 20, 80, 'glass'], [-90, 180, 20, 80, 'glass'], [-130, 230, 110, 20, 'stone'],
+        [75, 70, 20, 140, 'stone'], [145, 70, 20, 140, 'stone'], [110, 150, 110, 20, 'wood'],
+        [70, 210, 20, 100, 'wood'], [150, 210, 20, 100, 'wood'], [110, 270, 110, 20, 'stone']
+      ],
+      birds: [[-130, 16, 0], [-130, 156, 0], [-130, 256, 1], [110, 16, 1], [110, 176, 0], [110, 296, 2]]
+    },
+    {
+      name: 'Bunker', pigs: 3,
+      blocks: [
+        [-150, 40, 20, 80, 'stone'], [-50, 40, 20, 80, 'stone'], [50, 40, 20, 80, 'stone'], [150, 40, 20, 80, 'stone'],
+        [-100, 90, 120, 20, 'stone'], [100, 90, 120, 20, 'stone'], [0, 110, 140, 20, 'wood'],
+        [-50, 150, 20, 60, 'glass'], [50, 150, 20, 60, 'glass'], [0, 190, 140, 20, 'stone']
+      ],
+      birds: [[-100, 16, 2], [0, 16, 0], [100, 16, 1], [-130, 116, 0], [0, 136, 1], [0, 216, 0]]
+    },
+    {
+      name: 'Skyscraper', pigs: 3,
+      blocks: [
+        [-50, 50, 20, 100, 'wood'], [50, 50, 20, 100, 'wood'], [0, 110, 140, 20, 'stone'],
+        [-50, 170, 20, 100, 'stone'], [50, 170, 20, 100, 'stone'], [0, 230, 140, 20, 'wood'],
+        [-50, 290, 20, 100, 'glass'], [50, 290, 20, 100, 'glass'], [0, 350, 140, 20, 'stone'],
+        [-35, 400, 20, 80, 'wood'], [35, 400, 20, 80, 'wood'], [0, 450, 100, 20, 'stone']
+      ],
+      birds: [[0, 16, 1], [0, 136, 0], [0, 256, 2], [0, 376, 0], [0, 476, 1]]
+    },
+    {
+      name: 'Fortress', pigs: 3, aim: 350,
+      blocks: [
+        [-200, 75, 30, 150, 'stone'],
+        [-80, 60, 20, 120, 'stone'], [80, 60, 20, 120, 'stone'], [0, 130, 220, 20, 'stone'],
+        [-50, 190, 20, 100, 'wood'], [50, 190, 20, 100, 'wood'], [0, 250, 160, 20, 'stone'],
+        [170, 90, 20, 180, 'wood'], [230, 90, 20, 180, 'wood'], [200, 190, 100, 20, 'stone']
+      ],
+      birds: [[-130, 16, 0], [0, 16, 2], [0, 156, 1], [0, 276, 1], [200, 16, 0], [200, 216, 2]]
+    },
+    {
+      name: 'Glass Palace', pigs: 4, aim: 0,
+      blocks: [
+        [-180, 50, 20, 100, 'stone'], [-100, 50, 20, 100, 'stone'], [-140, 110, 120, 20, 'glass'],
+        [-170, 160, 20, 80, 'glass'], [-110, 160, 20, 80, 'glass'], [-140, 210, 100, 20, 'wood'],
+        [100, 50, 20, 100, 'stone'], [180, 50, 20, 100, 'stone'], [140, 110, 120, 20, 'glass'],
+        [110, 160, 20, 80, 'glass'], [170, 160, 20, 80, 'glass'], [140, 210, 100, 20, 'wood'],
+        [-40, 75, 20, 150, 'wood'], [40, 75, 20, 150, 'wood'], [0, 160, 120, 20, 'stone'],
+        [-30, 210, 20, 80, 'glass'], [30, 210, 20, 80, 'glass'], [0, 260, 100, 20, 'stone']
+      ],
+      birds: [
+        [-140, 16, 1], [0, 16, 2], [140, 16, 1],
+        [-140, 136, 0], [140, 136, 0], [-140, 236, 0], [140, 236, 0],
+        [0, 186, 2], [0, 286, 1]
+      ]
+    }
+  ];
+
+  let levelIndex = Math.min(LEVELS.length, Math.max(1, parseInt(location.hash.slice(1), 10) || 1)) - 1;
+  let level = null;
+  let levelBuiltAt = 0;
+  let loadCount = 0;
+
+  function loadLevel(i) {
+    levelIndex = i;
+    level = LEVELS[i];
+    loadCount++;
+    for (const b of blocks.concat(birds)) Composite.remove(world, b);
+    blocks.length = 0;
+    birds.length = 0;
+    detachSling();
+    if (pig) Composite.remove(world, pig);
+    pig = null;
+    particles.length = 0;
+    pigsLeft = level.pigs;
+    gameOver = false;
+    messageEl.style.display = 'none';
+    history.replaceState(null, '', '#' + (i + 1));
+
     const bx = WIDTH - 320;
-
-    // Two towers with a bridge
-    addBlock(bx - 80, GROUND_Y - 60, 20, 120, 'wood');   // left pillar
-    addBlock(bx + 80, GROUND_Y - 60, 20, 120, 'wood');   // right pillar
-    addBlock(bx, GROUND_Y - 130, 220, 20, 'stone');      // bridge
-
-    addBlock(bx - 50, GROUND_Y - 190, 20, 100, 'wood');  // upper left pillar
-    addBlock(bx + 50, GROUND_Y - 190, 20, 100, 'wood');  // upper right pillar
-    addBlock(bx, GROUND_Y - 250, 160, 20, 'stone');      // roof
-
-    addBird(bx - 40, GROUND_Y - 16, 0);          // ground birds (between the pillars)
-    addBird(bx + 40, GROUND_Y - 16, 0);
-    addBird(bx, GROUND_Y - 156, 1);              // bridge bird
-    addBird(bx, GROUND_Y - 276, 2);              // roof bird
+    for (const [x, y, w, h, material] of level.blocks) addBlock(bx + x, GROUND_Y - y, w, h, material);
+    for (const [x, y, skin] of level.birds) addBird(bx + x, GROUND_Y - y, skin);
+    levelBuiltAt = engine.timing.timestamp;
+    createPig();
   }
-
-  buildLevel();
-  const levelBuiltAt = engine.timing.timestamp;
-  createPig();
 
   // --- Mouse / slingshot control ---
   const mouse = Mouse.create(render.canvas);
@@ -285,7 +380,7 @@
         if (body.label === 'block') {
           if (impact > BLOCK_BREAK_IMPACT) {
             body.hitPoints--;
-            if (body.hitPoints === 1) {
+            if (body.hitPoints > 0 && !body.cracks) {
               body.cracks = makeCracks(body);
               spawnBlockDust(body, false);
             }
@@ -295,7 +390,8 @@
             }
           }
         } else if (body.label === 'bird' && body.alive) {
-          if (impact > BIRD_KO_IMPACT) knockOutBird(body);
+          if (impact > BIRD_SKINS[body.skin].toughness) knockOutBird(body);
+          else if (impact > BIRD_DAZE_IMPACT) spawnBirdStars(body);
         }
       }
     }
@@ -313,30 +409,43 @@
   const messageEl = document.getElementById('message');
   const hudEl = document.getElementById('hud');
 
-  function showEndCard(title, subtitle, cls) {
-    messageEl.innerHTML = `<div class="card ${cls}"><h1>${title}</h1><p>${subtitle}</p></div>`;
+  function showEndCard(title, subtitle, cls, buttonLabel, onButton) {
+    messageEl.innerHTML = `<div class="card ${cls}"><h1>${title}</h1><p>${subtitle}</p><button>${buttonLabel}</button></div>`;
+    messageEl.querySelector('button').onclick = onButton;
     messageEl.style.display = 'flex';
   }
 
   function checkWin() {
-    if (birds.every((b) => !b.alive)) {
+    if (!gameOver && birds.every((b) => !b.alive)) {
       gameOver = true;
       const spare = pigsLeft === 1 ? '1 pig to spare' : `${pigsLeft} pigs to spare`;
-      showEndCard('YOU WIN!', pigsLeft > 0 ? `All ${birds.length} birds knocked out with ${spare}.` : `All ${birds.length} birds knocked out.`, 'win');
+      const subtitle = pigsLeft > 0 ? `All ${birds.length} birds knocked out with ${spare}.` : `All ${birds.length} birds knocked out.`;
+      if (levelIndex < LEVELS.length - 1) {
+        showEndCard('LEVEL CLEAR!', subtitle, 'win', 'Next level', () => loadLevel(levelIndex + 1));
+      } else {
+        showEndCard('YOU WIN!', `All ${LEVELS.length} levels cleared!`, 'win', 'Play again', () => loadLevel(0));
+      }
     }
   }
 
   function checkLose() {
     if (!gameOver && pigsLeft <= 0) {
+      const load = loadCount;
       setTimeout(() => {
-        if (!gameOver) {
+        if (!gameOver && load === loadCount) {
           gameOver = true;
           const left = birds.filter((b) => b.alive).length;
-          showEndCard('GAME OVER', `${left} ${left === 1 ? 'bird is' : 'birds are'} still standing. Refresh to try again.`, 'lose');
+          showEndCard('GAME OVER', `${left} ${left === 1 ? 'bird is' : 'birds are'} still standing.`, 'lose', 'Retry', () => loadLevel(levelIndex));
         }
       }, 2000);
     }
   }
+
+  // Enter presses the end-card button, R restarts the level
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && gameOver) messageEl.querySelector('button')?.click();
+    else if (e.key === 'r' || e.key === 'R') loadLevel(levelIndex);
+  });
 
   // --- Aim preview ---
   function predictedPath() {
@@ -346,7 +455,7 @@
     const gravityStep = engine.gravity.y * engine.gravity.scale * STEP_MS * STEP_MS;
     const drag = 1 - pig.frictionAir;
     const pts = [];
-    const steps = Math.round(AIM_PREVIEW_MS / STEP_MS);
+    const steps = Math.round((level.aim ?? AIM_PREVIEW_MS) / STEP_MS);
     for (let i = 0; i < steps; i++) {
       vel.x *= drag;
       vel.y = vel.y * drag + gravityStep;
@@ -614,9 +723,11 @@
   }
 
   // --- Blocks ---
+  // hp = hits above BLOCK_BREAK_IMPACT to break; heavier stone also hits harder when it falls
   const MATERIALS = {
-    wood: { fill: '#c98f3b', fillHurt: '#a9742d', light: '#e2ad5c', dark: '#7a4d1a', line: '#9a6a28', crack: '#3a2410', dust: '#b98a55', chip: '#b27a33' },
-    stone: { fill: '#a9adb3', fillHurt: '#8b9096', light: '#c9cdd2', dark: '#565b62', line: '#8e939a', crack: '#2f3338', dust: '#b9bcc0', chip: '#7f848b' }
+    wood: { hp: 2, density: 0.005, fill: '#c98f3b', fillHurt: '#a9742d', light: '#e2ad5c', dark: '#7a4d1a', line: '#9a6a28', crack: '#3a2410', dust: '#b98a55', chip: '#b27a33' },
+    stone: { hp: 3, density: 0.008, fill: '#a9adb3', fillHurt: '#8b9096', light: '#c9cdd2', dark: '#565b62', line: '#8e939a', crack: '#2f3338', dust: '#b9bcc0', chip: '#7f848b' },
+    glass: { hp: 1, density: 0.003, fill: '#bfe6f5', fillHurt: '#a6d3e6', light: '#eaf8fd', dark: '#5a9ab5', line: '#ffffff', crack: '#3d6f85', dust: '#d8f1fa', chip: '#9fd3e8' }
   };
 
   function makeCracks(block) {
@@ -648,7 +759,7 @@
   function drawBlock(ctx, block) {
     const m = MATERIALS[block.material];
     const w = block.w, h = block.h;
-    const hurt = block.hitPoints < 2;
+    const hurt = block.hitPoints < block.maxHitPoints;
     ctx.save();
     ctx.translate(block.position.x, block.position.y);
     ctx.rotate(block.angle);
@@ -692,6 +803,19 @@
         ctx.arc(nx, ny, 1.8, 0, Math.PI * 2);
         ctx.fill();
       }
+    } else if (block.material === 'glass') {
+      // Two diagonal shine streaks
+      ctx.strokeStyle = m.line;
+      ctx.globalAlpha = 0.7;
+      const span = Math.max(w, h);
+      for (const [off, lw] of [[-span * 0.15, 4], [span * 0.05, 2]]) {
+        ctx.lineWidth = lw;
+        ctx.beginPath();
+        ctx.moveTo(off - span / 2, span / 2);
+        ctx.lineTo(off + span / 2, -span / 2);
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
     } else {
       ctx.fillStyle = m.dark;
       ctx.globalAlpha = 0.35;
@@ -994,8 +1118,7 @@
     }
   }
 
-  function spawnBirdPoof(bird) {
-    const skin = BIRD_SKINS[bird.skin];
+  function spawnBirdStars(bird) {
     const { x, y } = bird.position;
     for (let i = 0; i < 5; i++) {
       const a = -Math.PI / 2 + (i - 2) * 0.55;
@@ -1004,6 +1127,12 @@
         life: 0, maxLife: 0.7, size: 5 + Math.random() * 3, color: '#ffe766', rot: Math.random() * Math.PI, vr: 5
       });
     }
+  }
+
+  function spawnBirdPoof(bird) {
+    const skin = BIRD_SKINS[bird.skin];
+    const { x, y } = bird.position;
+    spawnBirdStars(bird);
     for (let i = 0; i < 7; i++) {
       const a = Math.random() * Math.PI * 2;
       const sp = 40 + Math.random() * 80;
@@ -1077,12 +1206,13 @@
 
   let lastHudKey = '';
   function updateHud() {
-    const key = `${pigsLeft}|${birds.map((b) => (b.alive ? 1 : 0)).join('')}`;
+    const key = `${loadCount}|${pigsLeft}|${birds.map((b) => (b.alive ? 1 : 0)).join('')}`;
     if (key === lastHudKey) return;
     lastHudKey = key;
-    const pigIcons = Array.from({ length: TOTAL_PIGS }, (_, i) => `<span class="slot${i < pigsLeft ? '' : ' used'}">${PIG_ICON}</span>`).join('');
+    const pigIcons = Array.from({ length: level.pigs }, (_, i) => `<span class="slot${i < pigsLeft ? '' : ' used'}">${PIG_ICON}</span>`).join('');
     const birdIcons = birds.map((b) => `<span class="slot">${birdIcon(b.skin, b.alive)}</span>`).join('');
-    hudEl.innerHTML = `<div class="row"><span class="label">Pigs</span>${pigIcons}</div><div class="row"><span class="label">Birds</span>${birdIcons}</div>`;
+    hudEl.innerHTML = `<div class="row"><span class="label">Level</span><span class="name">${levelIndex + 1}/${LEVELS.length} · ${level.name}</span></div>`
+      + `<div class="row"><span class="label">Pigs</span>${pigIcons}</div><div class="row"><span class="label">Birds</span>${birdIcons}</div>`;
   }
 
   // --- Frame ---
@@ -1156,4 +1286,6 @@
       ctx.fill();
     }
   });
+
+  loadLevel(levelIndex);
 })();

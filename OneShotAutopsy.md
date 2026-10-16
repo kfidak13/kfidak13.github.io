@@ -558,3 +558,60 @@ Comparing the two versions backs up what I noticed the first time. The one-shot 
 
 1. **Make it harder.** Now that the physics works, one pig is enough to win, so the challenge is gone. I'll use the Tuning section to make blocks tougher (`BLOCK_BREAK_IMPACT`) and lower the pull limit (`PULL_LIMIT`), and try a stronger tower design. The goal is a level that takes at least two good shots to beat.
 2. **Add a score and a restart key.** Carried over from this week: a score for every bird and block, and pressing R to restart instead of refreshing.
+
+
+## Round Three: 8 New Levels
+
+The next step after Round Two was making the game harder, so I added 8 new levels. Each one is tougher than the last, and you have to clear a level to unlock the next one.
+
+**[Play all 8 levels](games/angry-piggies-v2/index.html)** (the code is in the [AngryPigsCode repo](https://github.com/kfidak13/AngryPigsCode)). Click any level below to jump straight to it.
+
+<div class="level-grid">
+  <a href="games/angry-piggies-v2/index.html#1"><img width="640" height="360" alt="Level 1, Bridge" src="images/piggies-levels/level1.jpg" /><span>1. Bridge</span></a>
+  <a href="games/angry-piggies-v2/index.html#2"><img width="640" height="360" alt="Level 2, Glass House" src="images/piggies-levels/level2.jpg" /><span>2. Glass House</span></a>
+  <a href="games/angry-piggies-v2/index.html#3"><img width="640" height="360" alt="Level 3, Stone Fort" src="images/piggies-levels/level3.jpg" /><span>3. Stone Fort</span></a>
+  <a href="games/angry-piggies-v2/index.html#4"><img width="640" height="360" alt="Level 4, Twin Towers" src="images/piggies-levels/level4.jpg" /><span>4. Twin Towers</span></a>
+  <a href="games/angry-piggies-v2/index.html#5"><img width="640" height="360" alt="Level 5, Bunker" src="images/piggies-levels/level5.jpg" /><span>5. Bunker</span></a>
+  <a href="games/angry-piggies-v2/index.html#6"><img width="640" height="360" alt="Level 6, Skyscraper" src="images/piggies-levels/level6.jpg" /><span>6. Skyscraper</span></a>
+  <a href="games/angry-piggies-v2/index.html#7"><img width="640" height="360" alt="Level 7, Fortress" src="images/piggies-levels/level7.jpg" /><span>7. Fortress</span></a>
+  <a href="games/angry-piggies-v2/index.html#8"><img width="640" height="360" alt="Level 8, Glass Palace" src="images/piggies-levels/level8.jpg" /><span>8. Glass Palace</span></a>
+</div>
+
+### What makes it harder
+
+- **Three materials.** Glass breaks in one hit, wood in two, and stone takes three. Stone is also heavier, so it crushes whatever it falls on.
+- **Three kinds of birds.** Red birds fall over easily, yellow ones need a falling block or a direct hit, and blue ones need a solid pig hit or heavy stone landing on them. If a bird gets stars around its head, you only dazed it.
+- **Less help aiming.** The dotted aim line gets shorter on Level 7, and the last level, Glass Palace, has no aim line at all.
+- **Bigger towers.** The levels go from one simple tower with 4 birds up to three towers with 9 birds and 4 pigs.
+
+It also finally has a way to try again without refreshing. Clearing a level shows a **Next level** button, running out of pigs shows **Retry**, and pressing **R** restarts the level at any time.
+
+<img width="960" height="540" alt="The Level Clear card on level 1 with a Next level button" src="images/piggies-level-clear.jpg" />
+
+### A little bit of code
+
+All 8 levels live in one list called `LEVELS` at the top of `game.js`. Each level is just a name, how many pigs you get, and where every block and bird goes:
+
+```js
+{
+  name: 'Bridge', pigs: 3,
+  blocks: [[-80, 60, 20, 120, 'wood'], [80, 60, 20, 120, 'wood'], ...],
+  birds: [[-40, 16, 0], [40, 16, 0], ...]
+}
+```
+
+Each block is `[x, y, width, height, material]` and each bird is `[x, y, type]`. That means making a new level doesn't take any new code, just a new entry in the list.
+
+### What I found testing it
+
+I loaded every level and left it alone without launching anything, to make sure each tower can stand on its own. Six of the eight do, but two don't:
+
+- **Level 2, Glass House:** the tower falls apart before you even shoot and knocks out 5 of the 6 birds. The two glass beams in the middle overlap by 20 pixels, so the physics engine shoves them apart the second the level starts.
+- **Level 6, Skyscraper:** the five-story tower collapses on its own and the game shows "Level Clear" with all 3 pigs unused. Nothing overlaps here, so the tower is most likely just too tall and top-heavy to stay standing.
+
+The first two levels are also still beatable with a single good shot, which is fine for the opening levels since the difficulty ramps up after that.
+
+### Next steps
+
+1. **Fix Levels 2 and 6.** Separate the overlapping glass beams in Level 2, and make the Skyscraper sturdier (wider pillars or one less floor) so it stands until a pig hits it.
+2. **Add a score.** This is the last goal from my list that's still open. Every bird and block should be worth points, so there's a reason to replay levels.
