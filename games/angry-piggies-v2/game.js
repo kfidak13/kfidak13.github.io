@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  const { Engine, Render, Runner, Bodies, Body, Composite, Constraint, Mouse, MouseConstraint, Events, Vector } = Matter;
+  const { Engine, Render, Bodies, Body, Composite, Constraint, Mouse, MouseConstraint, Events, Vector } = Matter;
 
   const WIDTH = window.innerWidth;
   const HEIGHT = window.innerHeight;
@@ -47,7 +47,19 @@
     }
   });
   Render.run(render);
-  Runner.run(Runner.create(), engine);
+  // Fixed 60Hz physics steps whatever the display refresh rate (Matter's Runner never steps
+  // below 1/60s, so it ran the game at double speed on 120Hz screens)
+  let physicsLast = performance.now();
+  let physicsAcc = 0;
+  (function stepPhysics(now) {
+    physicsAcc = Math.min(physicsAcc + now - physicsLast, STEP_MS * 5); // don't fast-forward after a hidden tab
+    physicsLast = now;
+    while (physicsAcc >= STEP_MS) {
+      Engine.update(engine, STEP_MS);
+      physicsAcc -= STEP_MS;
+    }
+    requestAnimationFrame(stepPhysics);
+  })(physicsLast);
 
   // --- Static scenery ---
   const ground = Bodies.rectangle(WIDTH / 2, GROUND_Y + 40, WIDTH * 2, 80, {
@@ -176,7 +188,7 @@
       name: 'Glass House', pigs: 3,
       blocks: [
         [-120, 50, 20, 100, 'wood'], [0, 50, 20, 100, 'wood'], [120, 50, 20, 100, 'wood'],
-        [-60, 110, 140, 20, 'glass'], [60, 110, 140, 20, 'glass'],
+        [-60, 110, 120, 20, 'glass'], [60, 110, 120, 20, 'glass'],
         [-60, 160, 20, 80, 'glass'], [60, 160, 20, 80, 'glass'], [0, 210, 160, 20, 'wood']
       ],
       birds: [[-60, 16, 0], [60, 16, 0], [-100, 136, 0], [100, 136, 0], [0, 136, 0], [0, 236, 1]]
@@ -247,15 +259,42 @@
     }
   ];
 
-  let levelIndex = Math.min(LEVELS.length, Math.max(1, parseInt(location.hash.slice(1), 10) || 1)) - 1;
+  const hashLevel = parseInt(location.hash.slice(1), 10);
+  let levelIndex = 0;
   let level = null;
   let levelBuiltAt = 0;
   let loadCount = 0;
+  let score = 0;
+
+  // --- Scoring & saved progress ---
+  const BIRD_POINTS = 5000;
+  const HIT_POINTS = 100;            // a block that cracks but survives
+  const SPARE_PIG_POINTS = 10000;
+  const SAVE_KEY = 'angry-piggies-progress';
+
+  // progress[levelIndex] = { stars, score } for every cleared level
+  let progress = {};
+  try { progress = JSON.parse(localStorage.getItem(SAVE_KEY)) || {}; } catch (e) { /* private mode etc. */ }
+  function saveProgress() {
+    try { localStorage.setItem(SAVE_KEY, JSON.stringify(progress)); } catch (e) { /* not saved, still playable */ }
+  }
+  const isUnlocked = (i) => i === 0 || !!progress[i - 1];
+  // One-shot it for 3 stars: every spare pig is worth a star
+  const starsFor = (spare) => Math.min(3, 1 + spare);
+
+  function addScore(points, x, y, color) {
+    score += points;
+    particles.push({
+      type: 'text', text: points.toLocaleString(), x, y, vx: 0, vy: -55,
+      life: 0, maxLife: 1.1, size: points >= BIRD_POINTS ? 26 : 18, color: color || '#fff'
+    });
+  }
 
   function loadLevel(i) {
     levelIndex = i;
     level = LEVELS[i];
     loadCount++;
+    score = 0;
     for (const b of blocks.concat(birds)) Composite.remove(world, b);
     blocks.length = 0;
     birds.length = 0;
@@ -380,13 +419,15 @@
         if (body.label === 'block') {
           if (impact > BLOCK_BREAK_IMPACT) {
             body.hitPoints--;
-            if (body.hitPoints > 0 && !body.cracks) {
-              body.cracks = makeCracks(body);
+            if (body.hitPoints > 0) {
+              if (!body.cracks) body.cracks = makeCracks(body);
               spawnBlockDust(body, false);
-            }
-            if (body.hitPoints <= 0) {
+              addScore(HIT_POINTS, body.position.x, body.position.y);
+            } else if (body.hitPoints === 0) {
               spawnBlockDust(body, true);
               Composite.remove(world, body);
+              addScore(MATERIALS[body.material].points, body.position.x, body.position.y);
+              shake = Math.max(shake, 5);
             }
           }
         } else if (body.label === 'bird' && body.alive) {
@@ -400,6 +441,8 @@
   function knockOutBird(bird) {
     bird.alive = false;
     spawnBirdPoof(bird);
+    addScore(BIRD_POINTS, bird.position.x, bird.position.y - 20, '#ffe766');
+    shake = Math.max(shake, 8);
     setTimeout(() => Composite.remove(world, bird), 1200);
     checkWin();
   }
@@ -409,22 +452,38 @@
   const messageEl = document.getElementById('message');
   const hudEl = document.getElementById('hud');
 
-  function showEndCard(title, subtitle, cls, buttonLabel, onButton) {
-    messageEl.innerHTML = `<div class="card ${cls}"><h1>${title}</h1><p>${subtitle}</p><button>${buttonLabel}</button></div>`;
-    messageEl.querySelector('button').onclick = onButton;
+  function starsHtml(n) {
+    return [0, 1, 2].map((i) => `<span class="star${i < n ? ' on' : ''}" style="animation-delay:${0.25 + i * 0.2}s">★</span>`).join('');
+  }
+
+  // buttons: [label, onClick] pairs; the last one is the primary (Enter) button
+  function showCard(cls, html, buttons) {
+    messageEl.innerHTML = `<div class="card ${cls}">${html}<div class="buttons">${buttons.map(([label], i) =>
+      `<button class="${i === buttons.length - 1 ? 'primary' : ''}">${label}</button>`).join('')}</div></div>`;
+    messageEl.querySelectorAll('.buttons button').forEach((btn, i) => { btn.onclick = buttons[i][1]; });
     messageEl.style.display = 'flex';
   }
 
   function checkWin() {
     if (!gameOver && birds.every((b) => !b.alive)) {
       gameOver = true;
-      const spare = pigsLeft === 1 ? '1 pig to spare' : `${pigsLeft} pigs to spare`;
-      const subtitle = pigsLeft > 0 ? `All ${birds.length} birds knocked out with ${spare}.` : `All ${birds.length} birds knocked out.`;
-      if (levelIndex < LEVELS.length - 1) {
-        showEndCard('LEVEL CLEAR!', subtitle, 'win', 'Next level', () => loadLevel(levelIndex + 1));
-      } else {
-        showEndCard('YOU WIN!', `All ${LEVELS.length} levels cleared!`, 'win', 'Play again', () => loadLevel(0));
-      }
+      const bonus = pigsLeft * SPARE_PIG_POINTS;
+      score += bonus;
+      const stars = starsFor(pigsLeft);
+      const prev = progress[levelIndex];
+      const newBest = !prev || score > prev.score;
+      progress[levelIndex] = { stars: Math.max(stars, prev ? prev.stars : 0), score: Math.max(score, prev ? prev.score : 0) };
+      saveProgress();
+
+      const last = levelIndex === LEVELS.length - 1;
+      const bonusLine = pigsLeft > 0 ? `${pigsLeft} spare ${pigsLeft === 1 ? 'pig' : 'pigs'} +${bonus.toLocaleString()}` : 'No spare pigs';
+      const hint = stars < 3 ? `<p class="small">Clear it with ${3 - stars} more spare ${3 - stars === 1 ? 'pig' : 'pigs'} for ${stars === 2 ? '3 stars' : 'more stars'}</p>` : '';
+      showCard('win', `<div class="stars">${starsHtml(stars)}</div>
+        <h1>${last ? 'YOU WIN!' : 'LEVEL CLEAR!'}</h1>
+        <p>${score.toLocaleString()}${newBest ? ' <span class="best">NEW BEST!</span>' : ` · best ${prev.score.toLocaleString()}`}</p>
+        <p class="small">${bonusLine}</p>${hint}`,
+      [['Levels', showLevelSelect], ['Replay', () => loadLevel(levelIndex)],
+        last ? ['All levels', showLevelSelect] : ['Next level', () => loadLevel(levelIndex + 1)]]);
     }
   }
 
@@ -435,16 +494,49 @@
         if (!gameOver && load === loadCount) {
           gameOver = true;
           const left = birds.filter((b) => b.alive).length;
-          showEndCard('GAME OVER', `${left} ${left === 1 ? 'bird is' : 'birds are'} still standing.`, 'lose', 'Retry', () => loadLevel(levelIndex));
+          showCard('lose', `<h1>GAME OVER</h1><p>${left} ${left === 1 ? 'bird is' : 'birds are'} still standing.</p>`,
+            [['Levels', showLevelSelect], ['Retry', () => loadLevel(levelIndex)]]);
         }
       }, 2000);
     }
   }
 
-  // Enter presses the end-card button, R restarts the level
+  function showLevelSelect() {
+    gameOver = true;
+    const total = Object.values(progress).reduce((sum, p) => sum + p.stars, 0);
+    const tiles = LEVELS.map((lv, i) => {
+      const p = progress[i];
+      return isUnlocked(i)
+        ? `<button class="tile" data-level="${i}"><b>${i + 1}</b><span>${lv.name}</span><span class="tile-stars">${starsHtml(p ? p.stars : 0)}</span></button>`
+        : `<button class="tile locked" disabled><b>🔒</b><span>${lv.name}</span></button>`;
+    }).join('');
+    messageEl.innerHTML = `<div class="card menu"><h1>ANGRY PIGGIES</h1><p>★ ${total} / ${LEVELS.length * 3}</p>
+      <div class="grid">${tiles}</div><p class="small">Tip: click while the pig is flying to dash!</p></div>`;
+    messageEl.querySelectorAll('.tile[data-level]').forEach((btn) => { btn.onclick = () => loadLevel(+btn.dataset.level); });
+    messageEl.style.display = 'flex';
+  }
+
+  document.getElementById('menu-btn').onclick = showLevelSelect;
+
+  // Enter presses the card's main button, R restarts the level, Esc opens the level select
   window.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && gameOver) messageEl.querySelector('button')?.click();
+    if (e.key === 'Enter' && gameOver) messageEl.querySelector('button.primary')?.click();
     else if (e.key === 'r' || e.key === 'R') loadLevel(levelIndex);
+    else if (e.key === 'Escape') showLevelSelect();
+  });
+
+  // --- Dash: one click mid-flight boosts the pig forward ---
+  const DASH_MIN_SPEED = 20;
+  const DASH_MAX_SPEED = 45;
+  render.canvas.addEventListener('pointerdown', () => {
+    if (!pig || !launched || slingAttached || pig.dashed || gameOver) return;
+    pig.dashed = true;
+    const speed = Vector.magnitude(pig.velocity);
+    if (speed < 0.5) return;
+    const newSpeed = Math.min(DASH_MAX_SPEED, Math.max(DASH_MIN_SPEED, speed * 2));
+    Body.setVelocity(pig, Vector.mult(Vector.normalise(pig.velocity), newSpeed));
+    spawnDashBurst(pig);
+    shake = Math.max(shake, 4);
   });
 
   // --- Aim preview ---
@@ -723,11 +815,11 @@
   }
 
   // --- Blocks ---
-  // hp = hits above BLOCK_BREAK_IMPACT to break; heavier stone also hits harder when it falls
+  // hp = hits above BLOCK_BREAK_IMPACT to break (heavier stone also hits harder when it falls), points = score for breaking it
   const MATERIALS = {
-    wood: { hp: 2, density: 0.005, fill: '#c98f3b', fillHurt: '#a9742d', light: '#e2ad5c', dark: '#7a4d1a', line: '#9a6a28', crack: '#3a2410', dust: '#b98a55', chip: '#b27a33' },
-    stone: { hp: 3, density: 0.008, fill: '#a9adb3', fillHurt: '#8b9096', light: '#c9cdd2', dark: '#565b62', line: '#8e939a', crack: '#2f3338', dust: '#b9bcc0', chip: '#7f848b' },
-    glass: { hp: 1, density: 0.003, fill: '#bfe6f5', fillHurt: '#a6d3e6', light: '#eaf8fd', dark: '#5a9ab5', line: '#ffffff', crack: '#3d6f85', dust: '#d8f1fa', chip: '#9fd3e8' }
+    wood: { hp: 2, points: 500, density: 0.005, fill: '#c98f3b', fillHurt: '#a9742d', light: '#e2ad5c', dark: '#7a4d1a', line: '#9a6a28', crack: '#3a2410', dust: '#b98a55', chip: '#b27a33' },
+    stone: { hp: 3, points: 1000, density: 0.008, fill: '#a9adb3', fillHurt: '#8b9096', light: '#c9cdd2', dark: '#565b62', line: '#8e939a', crack: '#2f3338', dust: '#b9bcc0', chip: '#7f848b' },
+    glass: { hp: 1, points: 300, density: 0.003, fill: '#bfe6f5', fillHurt: '#a6d3e6', light: '#eaf8fd', dark: '#5a9ab5', line: '#ffffff', crack: '#3d6f85', dust: '#d8f1fa', chip: '#9fd3e8' }
   };
 
   function makeCracks(block) {
@@ -1118,6 +1210,18 @@
     }
   }
 
+  function spawnDashBurst(body) {
+    const back = Vector.mult(Vector.normalise(body.velocity), -1);
+    for (let i = 0; i < 10; i++) {
+      const a = Math.atan2(back.y, back.x) + (Math.random() - 0.5) * 1.2;
+      const sp = 80 + Math.random() * 120;
+      particles.push({
+        type: 'puff', x: body.position.x, y: body.position.y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp,
+        life: 0, maxLife: 0.35 + Math.random() * 0.25, size: 4 + Math.random() * 5, color: '#fff7cf'
+      });
+    }
+  }
+
   function spawnBirdStars(bird) {
     const { x, y } = bird.position;
     for (let i = 0; i < 5; i++) {
@@ -1163,6 +1267,7 @@
       if (p.type === 'chip') p.vy += 900 * dt;
       else if (p.type === 'feather') { p.vy += 90 * dt; p.vx *= 0.97; p.sway += dt * 6; p.x += Math.sin(p.sway) * 30 * dt; }
       else if (p.type === 'puff') { p.vx *= 0.94; p.vy *= 0.94; }
+      else if (p.type === 'text') p.vy *= 0.95;
       p.x += p.vx * dt;
       p.y += p.vy * dt;
       if (p.rot !== undefined) p.rot += p.vr * dt;
@@ -1171,7 +1276,19 @@
       ctx.translate(p.x, p.y);
       ctx.globalAlpha = 1 - t;
       ctx.fillStyle = p.color;
-      if (p.type === 'puff') {
+      if (p.type === 'text') {
+        // Score popup: pops in, holds, then fades
+        ctx.globalAlpha = Math.min(1, (1 - t) * 2.5);
+        const s = t < 0.12 ? 0.6 + (t / 0.12) * 0.6 : 1.2 - Math.min(0.2, (t - 0.12));
+        ctx.scale(s, s);
+        ctx.font = `${p.size}px 'Lilita One', sans-serif`;
+        ctx.textAlign = 'center';
+        ctx.lineWidth = 4;
+        ctx.lineJoin = 'round';
+        ctx.strokeStyle = 'rgba(40, 30, 10, 0.75)';
+        ctx.strokeText(p.text, 0, 0);
+        ctx.fillText(p.text, 0, 0);
+      } else if (p.type === 'puff') {
         ctx.beginPath();
         ctx.arc(0, 0, p.size * (1 + t * 1.5), 0, Math.PI * 2);
         ctx.fill();
@@ -1206,18 +1323,21 @@
 
   let lastHudKey = '';
   function updateHud() {
-    const key = `${loadCount}|${pigsLeft}|${birds.map((b) => (b.alive ? 1 : 0)).join('')}`;
+    const key = `${loadCount}|${pigsLeft}|${score}|${birds.map((b) => (b.alive ? 1 : 0)).join('')}`;
     if (key === lastHudKey) return;
     lastHudKey = key;
     const pigIcons = Array.from({ length: level.pigs }, (_, i) => `<span class="slot${i < pigsLeft ? '' : ' used'}">${PIG_ICON}</span>`).join('');
     const birdIcons = birds.map((b) => `<span class="slot">${birdIcon(b.skin, b.alive)}</span>`).join('');
+    const best = progress[levelIndex] ? ` <span class="dim">best ${progress[levelIndex].score.toLocaleString()}</span>` : '';
     hudEl.innerHTML = `<div class="row"><span class="label">Level</span><span class="name">${levelIndex + 1}/${LEVELS.length} · ${level.name}</span></div>`
+      + `<div class="row"><span class="label">Score</span><span class="name">${score.toLocaleString()}${best}</span></div>`
       + `<div class="row"><span class="label">Pigs</span>${pigIcons}</div><div class="row"><span class="label">Birds</span>${birdIcons}</div>`;
   }
 
   // --- Frame ---
   const trail = [];
   let lastFrame = performance.now();
+  let shake = 0;
 
   Events.on(render, 'afterRender', () => {
     const ctx = render.context;
@@ -1226,6 +1346,15 @@
     lastFrame = nowMs;
 
     updateHud();
+
+    // Screen shake on big hits (slight zoom hides the canvas edges)
+    if (shake > 0.3) {
+      render.canvas.style.transform = `translate(${(Math.random() - 0.5) * shake}px, ${(Math.random() - 0.5) * shake}px) scale(1.02)`;
+      shake *= 0.85;
+    } else if (shake) {
+      shake = 0;
+      render.canvas.style.transform = '';
+    }
 
     // Camera parallax follows the flying pig
     const camTarget = pig && launched ? Math.max(0, Math.min(1, (pig.position.x - SLING_X) / WIDTH)) : 0;
@@ -1287,5 +1416,13 @@
     }
   });
 
-  loadLevel(levelIndex);
+  // A #N link jumps straight into that level; otherwise start on the level select
+  if (hashLevel >= 1 && hashLevel <= LEVELS.length) {
+    loadLevel(hashLevel - 1);
+  } else {
+    let next = 0;
+    while (next < LEVELS.length - 1 && progress[next]) next++;
+    loadLevel(next);
+    showLevelSelect();
+  }
 })();
