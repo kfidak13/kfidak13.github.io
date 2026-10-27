@@ -39,15 +39,26 @@ In the 2026-27 school year, I am taking Tech and Innovation Seminar II. I hope t
   </a>
 </div>
 
-## Journals & reflections
+## Angry Piggies
 
 <div class="project-grid">
   <a class="project-card" href="OneShotAutopsy.html">
-    <span class="tag">10-12-26 · Tech Sem II</span>
-    <h3>One Shot Autopsy: Angry Piggies</h3>
+    <span class="tag">10-12-26 · Part 1</span>
+    <h3>One Shot Autopsy: Building the Game</h3>
     <p>Can AI build a whole game from one prompt? I asked for a reverse Angry Birds, took the code apart to find why the physics broke, then rebuilt it into a version that works, now with 8 levels.</p>
     <span class="arrow" aria-hidden="true">→</span>
   </a>
+  <a class="project-card" href="JoystickController.html">
+    <span class="tag">10-27-26 · Part 2</span>
+    <h3>A Joystick Controller</h3>
+    <p>Playing Angry Piggies with a real joystick: an Arduino reads the stick and sends it to the game over USB. Tilt to aim, press to fire, and the troubleshooting it took to match the code to my wiring.</p>
+    <span class="arrow" aria-hidden="true">→</span>
+  </a>
+</div>
+
+## Journals & reflections
+
+<div class="project-grid">
   <a class="project-card" href="3d%20Scanner%2026-27.html">
     <span class="tag">10-2-26 · Tech Sem II</span>
     <h3>3D Scanner, Round Two</h3>
