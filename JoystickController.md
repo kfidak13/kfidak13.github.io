@@ -1,4 +1,4 @@
-<img width="576" height="323" alt="386504B2-F8C0-432E-81F8-D4453B553432_4_5005_c" src="https://github.com/user-attachments/assets/c6681144-9777-4db7-bcbd-46df93c16b76" />
+
 # 10-27-26 · Angry Piggies, Part Two: A Joystick Controller
 
 ## Overview
