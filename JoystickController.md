@@ -1,3 +1,4 @@
+<img width="576" height="323" alt="386504B2-F8C0-432E-81F8-D4453B553432_4_5005_c" src="https://github.com/user-attachments/assets/c6681144-9777-4db7-bcbd-46df93c16b76" />
 # 10-27-26 · Angry Piggies, Part Two: A Joystick Controller
 
 ## Overview
@@ -150,6 +151,8 @@ The AI pointed out that in the first photo there's a red wire from 5V to the bre
 The hardware was easy to figure out. Once the pins in the sketch matched where our wires actually were, we uploaded it, and the joystick was working almost immediately. We didn't have to rewire anything or go back and forth guessing whether the problem was the circuit or the code.
 
 Because the Arduino side worked right away, getting the game working was fast as well. We connected the joystick in Chrome, and the pig responded to the stick. Most of the troubleshooting had already happened before we plugged anything in, when we got the code to match my wiring, so by the time we tested on the real board, there wasn't much left to fix.
+
+<img width="576" height="323" alt="386504B2-F8C0-432E-81F8-D4453B553432_4_5005_c" src="https://github.com/user-attachments/assets/608a4ab2-7cf9-4c65-9444-7b872bd8d455" />
 
 ## Personal Journey
 
