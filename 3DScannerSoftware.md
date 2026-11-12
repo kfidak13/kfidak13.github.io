@@ -220,6 +220,7 @@ What we're checking next, with the 12V off whenever we touch a wire:
 
 **Datasheets and parts**
 
+- http://localhost:3000/
 - [Sharp GP2Y0A21YK0F datasheet](https://global.sharp/products/device/lineup/data/pdf/datasheet/gp2y0a21yk_e.pdf) and [Pololu's product page](https://www.pololu.com/product/136) for the IR sensor
 - [Allegro A4988 datasheet](https://www.allegromicro.com/-/media/files/datasheets/a4988-datasheet.pdf) and [Pololu's A4988 driver page](https://www.pololu.com/product/1182), including setting the current limit
 - [Protoneer Arduino CNC Shield](https://blog.protoneer.co.nz/arduino-cnc-shield/), the original shield our clone is based on
