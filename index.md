@@ -65,18 +65,6 @@ In the 2026-27 school year, I am taking Tech and Innovation Seminar II. I hope t
     <p>Everything from this year in one place: servos to steppers, the pan-tilt scanner, our own scanning sketch, a simpler 3D page anyone can use, and videos of real scans.</p>
     <span class="arrow" aria-hidden="true">→</span>
   </a>
-  <a class="project-card" href="3DScannerSoftware.html">
-    <span class="tag">11-12-26 · Tech Sem II</span>
-    <h3>3D Scanner, Round Three</h3>
-    <p>Software that turns IR distance readings into a 3D image, how to build it yourself, and the troubleshooting: old firmware, a loose sensor wire, and motors that won't move yet.</p>
-    <span class="arrow" aria-hidden="true">→</span>
-  </a>
-  <a class="project-card" href="3d%20Scanner%2026-27.html">
-    <span class="tag">10-2-26 · Tech Sem II</span>
-    <h3>3D Scanner, Round Two</h3>
-    <p>Servo and ultrasonic sensor working, coordinate points coming in, and after a fight with our breadboard wiring, the stepper motor is finally moving.</p>
-    <span class="arrow" aria-hidden="true">→</span>
-  </a>
   <a class="project-card" href="Arduino%2026-27.html">
     <span class="tag">9-21-26 · Tech Sem II</span>
     <h3>Arduino &amp; Piezo Buzzer</h3>

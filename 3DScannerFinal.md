@@ -3,7 +3,7 @@
 
 ## Overview
 
-This journal pulls together everything my partner and I did on the 3D scanner this year in Tech and Innovation Seminar II, from [Round Two](3d%20Scanner%2026-27.html) and [Round Three](3DScannerSoftware.html) through to where it is now.
+This journal is the full record of what my partner and I did on the 3D scanner this year in Tech and Innovation Seminar II, from the first stepper motor in the fall through to where it is now.
 
 We started the year with a servo, an ultrasonic sensor and a stepper we couldn't get to turn. We ended it with a two-motor pan-tilt scanner that sweeps an infrared sensor across an object, plus a web page that turns the readings into a 3D image you can spin around. That page is live at **[kfidak13.github.io/RLK](https://kfidak13.github.io/RLK/)**, so anyone with the link and the hardware can use it.
 
@@ -72,7 +72,7 @@ Instead of a breadboard, the motors now run through a CNC shield that plugs stra
 
 ### First version
 
-The first version of the [scanner page](3DScannerSoftware.html) ran the scan from the browser, one command at a time. It had jog buttons, tilt limits that the Arduino enforced, and calibration boxes. It worked against a simulated Arduino, but it had a lot of controls, and in Round Three the motors still weren't moving, so we couldn't try it for real.
+The first version of the scanner page ran the scan from the browser, one command at a time. It had jog buttons, tilt limits that the Arduino enforced, and calibration boxes. It worked against a simulated Arduino, but it had a lot of controls, and at that point the motors still weren't moving, so we couldn't try it for real.
 
 ### Our own scanning sketch
 
@@ -117,12 +117,12 @@ Most of this year was troubleshooting. These are the problems that took the long
 
 | Problem | What was actually wrong | Fix |
 |---|---|---|
-| Stepper wouldn't turn (Round Two) | A breadboard connection wasn't holding | Reseated the wiring until the signal reached the driver |
+| Stepper wouldn't turn (October) | A breadboard connection wasn't holding | Reseated the wiring until the signal reached the driver |
 | Page wouldn't connect | The Arduino still had an old test sketch running at a different speed | Uploaded the right sketch |
 | Page failed to connect even with the right sketch | A junk byte at startup stuck to the front of the `ready` message | The page now accepts it |
 | Sensor gave numbers but they jumped around | The sensor's signal wire wasn't plugged in, and an empty pin still gives numbers | Plugged it into CoolEn; the readings then followed my hand |
 | "Resource busy" | The Arduino IDE's Serial Monitor was holding the port | Close the Serial Monitor before connecting |
-| Motors silent and loose (Round Three) | The Arduino accepted every command, but no current reached the motors | Narrowed it to the 12V power and the shared enable pin before the motors started moving |
+| Motors silent and loose (November) | The Arduino accepted every command, but no current reached the motors | Narrowed it to the 12V power and the shared enable pin before the motors started moving |
 | X sweep setting did nothing | That Arduino still had the sketch from before the settings existed | Upload the current sketch; the page now warns about this |
 | Publishing failed | The sketch file's folder didn't exist on GitHub's servers | Create the folder first |
 
@@ -153,7 +153,6 @@ What we did:
 - [The RLK repository](https://github.com/kfidak13/RLK), with all of the code
 - [The scanning sketch](https://github.com/kfidak13/RLK/blob/main/firmware/scanner/scanner.ino)
 - [How to run a scan](https://github.com/kfidak13/RLK/blob/main/docs/hardware-checklist.md)
-- This year's journals: [Round Two](3d%20Scanner%2026-27.html) and [Round Three](3DScannerSoftware.html)
 
 **Datasheets and parts**
 
@@ -170,7 +169,7 @@ At the start of the year, the scanner felt like a lot of separate pieces that di
 
 ### How feelings changed
 
-The hardest stretch was Round Three, when the software was ready but the motors wouldn't move and I couldn't see anything wrong with the wiring. Seeing the motors finally sweep and the first real points show up in the 3D view made that worth it. It also changed how I think about the software: the first version did a lot, but the simpler one we actually used was better.
+The hardest stretch was early November, when the software was ready but the motors wouldn't move and I couldn't see anything wrong with the wiring. Seeing the motors finally sweep and the first real points show up in the 3D view made that worth it. It also changed how I think about the software: the first version did a lot, but the simpler one we actually used was better.
 
 ### What's next
 
