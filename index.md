@@ -59,6 +59,12 @@ In the 2026-27 school year, I am taking Tech and Innovation Seminar II. I hope t
 ## Journals & reflections
 
 <div class="project-grid">
+  <a class="project-card" href="3DScannerFinal.html">
+    <span class="tag">11-19-26 · Tech Sem II</span>
+    <h3>3D Scanner: The Whole Year</h3>
+    <p>Everything from this year in one place: servos to steppers, the pan-tilt scanner, our own scanning sketch, a simpler 3D page anyone can use, and videos of real scans.</p>
+    <span class="arrow" aria-hidden="true">→</span>
+  </a>
   <a class="project-card" href="3DScannerSoftware.html">
     <span class="tag">11-12-26 · Tech Sem II</span>
     <h3>3D Scanner, Round Three</h3>
